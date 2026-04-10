@@ -5,10 +5,14 @@ import type { User } from "@shared/schema";
 type SafeUser = Omit<User, "password">;
 
 export function useAuth() {
-  const { data: user, isLoading, error } = useQuery<SafeUser>({
+  const { data: user, isLoading, error, isFetched } = useQuery<SafeUser>({
     queryKey: ["/api/auth/me"],
     retry: false,
     staleTime: Infinity,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+    refetchInterval: false,
   });
 
   const loginMutation = useMutation({
@@ -29,14 +33,17 @@ export function useAuth() {
       await apiRequest("/api/auth/logout", { method: "POST" });
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/auth/me"] });
+      queryClient.setQueryData(["/api/auth/me"], null);
       queryClient.clear();
     },
   });
 
+  // After fetch completes (success or error), we're done loading
+  const doneLoading = isFetched;
+
   return {
     user: user ?? null,
-    isLoading,
+    isLoading: !doneLoading,
     isAuthenticated: !!user && !error,
     login: loginMutation,
     logout: logoutMutation,

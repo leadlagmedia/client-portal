@@ -1,6 +1,5 @@
 import { QueryClient, QueryFunction } from "@tanstack/react-query";
 
-// API_BASE handles both local dev and deployed environments
 const API_BASE = "__PORT_5000__".startsWith("__") ? "" : "__PORT_5000__";
 
 export async function apiRequest(url: string, options?: RequestInit): Promise<Response> {
@@ -11,7 +10,9 @@ export async function apiRequest(url: string, options?: RequestInit): Promise<Re
   });
   if (!res.ok) {
     const body = await res.json().catch(() => ({ error: res.statusText }));
-    throw new Error(body.error || res.statusText);
+    const err = new Error(body.error || res.statusText);
+    (err as any).status = res.status;
+    throw err;
   }
   return res;
 }
@@ -28,6 +29,7 @@ export const queryClient = new QueryClient({
       refetchOnWindowFocus: false,
       staleTime: 30000,
       retry: false,
+      refetchInterval: false,
     },
   },
 });

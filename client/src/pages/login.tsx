@@ -5,6 +5,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
 import { Loader2, Lock, Mail } from "lucide-react";
+import { Link } from "wouter";
+import { useHashLocation } from "wouter/use-hash-location";
+import { logoWhite } from "@/lib/images";
 
 export default function LoginPage() {
   const { login } = useAuth();
@@ -24,16 +27,12 @@ export default function LoginPage() {
       <div className="relative z-10 w-full max-w-md">
         {/* Logo section */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center gap-3 mb-2">
-            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Lead-Lag Media">
-              <rect width="40" height="40" rx="8" fill="hsl(40, 80%, 55%)" />
-              <path d="M10 28V12h4v12h8v4H10z" fill="hsl(220, 40%, 7%)" />
-              <path d="M24 28V12h4v16h-4z" fill="hsl(220, 40%, 7%)" opacity="0.7" />
-              <path d="M30 12h-2v4h2v-4z" fill="hsl(220, 40%, 7%)" opacity="0.5" />
-            </svg>
-            <span className="text-xl font-semibold tracking-tight text-foreground">
-              Lead-Lag Media
-            </span>
+          <div className="inline-flex items-center justify-center mb-2">
+            <img
+              src={logoWhite}
+              alt="Lead-Lag Media"
+              className="h-10 w-auto"
+            />
           </div>
           <p className="text-sm text-muted-foreground mt-1">Client Portal</p>
         </div>
@@ -96,6 +95,16 @@ export default function LoginPage() {
                 ) : null}
                 Sign In
               </Button>
+
+              <div className="text-center pt-1">
+                <span
+                  className="text-sm text-muted-foreground hover:text-primary cursor-pointer transition-colors"
+                  onClick={() => window.location.hash = "#/forgot-password"}
+                  data-testid="link-forgot-password"
+                >
+                  Forgot your password?
+                </span>
+              </div>
             </form>
           </CardContent>
         </Card>

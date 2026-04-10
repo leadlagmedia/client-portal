@@ -14,6 +14,7 @@ import {
   SidebarHeader,
 } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
+import { logoWhite } from "@/lib/images";
 
 export function AppSidebar() {
   const { user, logout } = useAuth();
@@ -35,16 +36,11 @@ export function AppSidebar() {
     <Sidebar>
       <SidebarHeader className="p-4 border-b border-sidebar-border">
         <div className="flex items-center gap-2.5">
-          <svg width="28" height="28" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Lead-Lag Media">
-            <rect width="40" height="40" rx="8" fill="hsl(40, 80%, 55%)" />
-            <path d="M10 28V12h4v12h8v4H10z" fill="hsl(220, 40%, 7%)" />
-            <path d="M24 28V12h4v16h-4z" fill="hsl(220, 40%, 7%)" opacity="0.7" />
-            <path d="M30 12h-2v4h2v-4z" fill="hsl(220, 40%, 7%)" opacity="0.5" />
-          </svg>
-          <div className="min-w-0">
-            <p className="text-sm font-semibold text-sidebar-foreground truncate">Lead-Lag Media</p>
-            <p className="text-[10px] text-muted-foreground uppercase tracking-wider">Client Portal</p>
-          </div>
+          <img
+            src={logoWhite}
+            alt="Lead-Lag Media"
+            className="h-6 w-auto"
+          />
         </div>
       </SidebarHeader>
 

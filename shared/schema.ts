@@ -49,6 +49,15 @@ export const deliverables = sqliteTable("deliverables", {
   notes: text("notes"),
 });
 
+// Password reset tokens
+export const passwordResetTokens = sqliteTable("password_reset_tokens", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  userId: integer("user_id").notNull(),
+  token: text("token").notNull().unique(),
+  expiresAt: text("expires_at").notNull(),
+  usedAt: text("used_at"),
+});
+
 // Monthly performance data for charts
 export const monthlyStats = sqliteTable("monthly_stats", {
   id: integer("id").primaryKey({ autoIncrement: true }),
@@ -64,6 +73,7 @@ export const insertKpiSchema = createInsertSchema(kpiMetrics).omit({ id: true })
 export const insertActivitySchema = createInsertSchema(activities).omit({ id: true });
 export const insertDeliverableSchema = createInsertSchema(deliverables).omit({ id: true });
 export const insertMonthlyStatSchema = createInsertSchema(monthlyStats).omit({ id: true });
+export const insertPasswordResetTokenSchema = createInsertSchema(passwordResetTokens).omit({ id: true });
 
 // Types
 export type User = typeof users.$inferSelect;
@@ -76,6 +86,8 @@ export type Deliverable = typeof deliverables.$inferSelect;
 export type InsertDeliverable = z.infer<typeof insertDeliverableSchema>;
 export type MonthlyStat = typeof monthlyStats.$inferSelect;
 export type InsertMonthlyStat = z.infer<typeof insertMonthlyStatSchema>;
+export type PasswordResetToken = typeof passwordResetTokens.$inferSelect;
+export type InsertPasswordResetToken = z.infer<typeof insertPasswordResetTokenSchema>;
 
 // Login schema
 export const loginSchema = z.object({

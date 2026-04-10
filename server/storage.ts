@@ -2,15 +2,16 @@ import { drizzle } from "drizzle-orm/better-sqlite3";
 import Database from "better-sqlite3";
 import { eq, and, desc } from "drizzle-orm";
 import {
-  users, kpiMetrics, activities, deliverables, monthlyStats,
+  users, kpiMetrics, activities, deliverables, monthlyStats, passwordResetTokens,
   type User, type InsertUser,
   type KpiMetric, type InsertKpiMetric,
   type Activity, type InsertActivity,
   type Deliverable, type InsertDeliverable,
   type MonthlyStat, type InsertMonthlyStat,
+  type PasswordResetToken, type InsertPasswordResetToken,
 } from "@shared/schema";
 
-const sqlite = new Database("portal.db");
+const sqlite = new Database("data.db");
 sqlite.pragma("journal_mode = WAL");
 
 export const db = drizzle(sqlite);
@@ -47,6 +48,11 @@ export interface IStorage {
   getMonthlyStatsByUser(userId: number): MonthlyStat[];
   createMonthlyStat(data: InsertMonthlyStat): MonthlyStat;
   deleteMonthlyStatsByUser(userId: number): void;
+
+  // Password Reset
+  createPasswordResetToken(data: InsertPasswordResetToken): PasswordResetToken;
+  getPasswordResetToken(token: string): PasswordResetToken | undefined;
+  markTokenUsed(token: string): void;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -149,6 +155,24 @@ export class DatabaseStorage implements IStorage {
 
   deleteMonthlyStatsByUser(userId: number): void {
     db.delete(monthlyStats).where(eq(monthlyStats.userId, userId)).run();
+  }
+
+  // Password Reset
+  createPasswordResetToken(data: InsertPasswordResetToken): PasswordResetToken {
+    return db.insert(passwordResetTokens).values(data).returning().get();
+  }
+
+  getPasswordResetToken(token: string): PasswordResetToken | undefined {
+    return db.select().from(passwordResetTokens)
+      .where(eq(passwordResetTokens.token, token))
+      .get();
+  }
+
+  markTokenUsed(token: string): void {
+    db.update(passwordResetTokens)
+      .set({ usedAt: new Date().toISOString() })
+      .where(eq(passwordResetTokens.token, token))
+      .run();
   }
 }
 

@@ -5,6 +5,7 @@ import MemoryStore from "memorystore";
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 import bcrypt from "bcryptjs";
+import crypto from "crypto";
 import { storage } from "./storage";
 import { loginSchema, insertUserSchema } from "@shared/schema";
 import type { User } from "@shared/schema";
@@ -134,6 +135,28 @@ export async function registerRoutes(server: Server, app: Express) {
       storage.createMonthlyStat({ userId: issuer.id, month: s.month, metric: "podcast_views", value: s.podcast_views });
     });
 
+    // Seed Distillate Capital issuer
+    const distillateHash = bcrypt.hashSync("distillate2026", 10);
+    storage.createUser({
+      email: "jolsen@distillatecapital.com",
+      password: distillateHash,
+      name: "John Olsen",
+      company: "Distillate Capital",
+      role: "issuer",
+      createdAt: new Date().toISOString(),
+    });
+
+    // Seed Greg Babij — FA Services advisor
+    const gregHash = bcrypt.hashSync("sundial2026", 10);
+    const gregUser = storage.createUser({
+      email: "gb@sundial.io",
+      password: gregHash,
+      name: "Greg Babij",
+      company: "Sundial",
+      role: "advisor",
+      createdAt: new Date().toISOString(),
+    });
+
     // Seed demo advisor
     const advisorHash = bcrypt.hashSync("demo123", 10);
     const advisor = storage.createUser({
@@ -160,7 +183,155 @@ export async function registerRoutes(server: Server, app: Express) {
       { userId: advisor.id, type: "fa_intro", title: "Introduction: Running Oak Capital", description: "Introduction to Seth Cogswell", date: "2026-03-20", status: "completed" },
     ];
     advisorActs.forEach((a) => storage.createActivity(a));
+
+    // ── Seed issuer accounts for all client dashboards ──
+
+    // GraniteShares — Will Rhind
+    storage.createUser({
+      email: "wrhind@graniteshares.com",
+      password: bcrypt.hashSync("granite2026", 10),
+      name: "Will Rhind",
+      company: "GraniteShares",
+      role: "issuer",
+      createdAt: new Date().toISOString(),
+    });
+
+    // Running Oak — Seth Cogswell
+    storage.createUser({
+      email: "seth@runningoakcapital.com",
+      password: bcrypt.hashSync("runningoak2026", 10),
+      name: "Seth Cogswell",
+      company: "Running Oak Capital",
+      role: "issuer",
+      createdAt: new Date().toISOString(),
+    });
+
+    // Dynamic Wealth — Brad Barrie
+    storage.createUser({
+      email: "brad@dynamicwg.com",
+      password: bcrypt.hashSync("dynamic2026", 10),
+      name: "Brad Barrie",
+      company: "Dynamic Wealth Group",
+      role: "issuer",
+      createdAt: new Date().toISOString(),
+    });
+
+    // SanJac Alpha — Jimmy Kelly
+    storage.createUser({
+      email: "jimmy@sanjacalpha.com",
+      password: bcrypt.hashSync("sanjac2026", 10),
+      name: "Jimmy Kelly",
+      company: "SanJac Alpha",
+      role: "issuer",
+      createdAt: new Date().toISOString(),
+    });
+
+    // KraneShares — Joe Demmler
+    storage.createUser({
+      email: "joe.demmler@kraneshares.com",
+      password: bcrypt.hashSync("krane2026", 10),
+      name: "Joe Demmler",
+      company: "KraneShares",
+      role: "issuer",
+      createdAt: new Date().toISOString(),
+    });
+
+    // USCF — John Love
+    storage.createUser({
+      email: "jlove@uscfinvestments.com",
+      password: bcrypt.hashSync("uscf2026", 10),
+      name: "John Love",
+      company: "USCF Investments",
+      role: "issuer",
+      createdAt: new Date().toISOString(),
+    });
+
+    // Infrastructure Capital — Jay Hatfield
+    storage.createUser({
+      email: "jhatfield@infracapfunds.com",
+      password: bcrypt.hashSync("infracap2026", 10),
+      name: "Jay Hatfield",
+      company: "Infrastructure Capital Advisors",
+      role: "issuer",
+      createdAt: new Date().toISOString(),
+    });
+
+    // TappAlpha — Mike Loukas
+    storage.createUser({
+      email: "mloukas@tappalpha.com",
+      password: bcrypt.hashSync("tapp2026", 10),
+      name: "Mike Loukas",
+      company: "TappAlpha",
+      role: "issuer",
+      createdAt: new Date().toISOString(),
+    });
   }
+
+  // === PASSWORD RESET ROUTES ===
+
+  app.post("/api/auth/forgot-password", (req, res) => {
+    const { email } = req.body;
+    if (!email) return res.status(400).json({ error: "Email is required" });
+
+    const user = storage.getUserByEmail(email.toLowerCase().trim());
+    // Always return success to prevent email enumeration
+    if (!user) return res.json({ ok: true });
+
+    // Generate a secure token
+    const token = crypto.randomBytes(32).toString("hex");
+    const expiresAt = new Date(Date.now() + 60 * 60 * 1000).toISOString(); // 1 hour
+
+    storage.createPasswordResetToken({ userId: user.id, token, expiresAt });
+
+    // Store the token in a file so the admin can send the reset email via Outlook
+    const resetUrl = `portal.leadlagmedia.com/#/reset-password?token=${token}`;
+    const fs = require("fs");
+    const resetInfo = {
+      email: user.email,
+      name: user.name,
+      token,
+      resetUrl,
+      expiresAt,
+      createdAt: new Date().toISOString(),
+    };
+    try {
+      const logPath = require("path").resolve("password-reset-requests.json");
+      let existing: any[] = [];
+      try { existing = JSON.parse(fs.readFileSync(logPath, "utf-8")); } catch {}
+      existing.push(resetInfo);
+      fs.writeFileSync(logPath, JSON.stringify(existing, null, 2));
+    } catch {}
+
+    res.json({ ok: true });
+  });
+
+  app.post("/api/auth/reset-password", (req, res) => {
+    const { token, password } = req.body;
+    if (!token || !password) return res.status(400).json({ error: "Token and password are required" });
+    if (password.length < 6) return res.status(400).json({ error: "Password must be at least 6 characters" });
+
+    const resetToken = storage.getPasswordResetToken(token);
+    if (!resetToken) return res.status(400).json({ error: "Invalid or expired reset link" });
+    if (resetToken.usedAt) return res.status(400).json({ error: "This reset link has already been used" });
+    if (new Date(resetToken.expiresAt) < new Date()) return res.status(400).json({ error: "This reset link has expired" });
+
+    const hash = bcrypt.hashSync(password, 10);
+    storage.updateUser(resetToken.userId, { password: hash });
+    storage.markTokenUsed(token);
+
+    res.json({ ok: true });
+  });
+
+  app.get("/api/auth/verify-reset-token", (req, res) => {
+    const token = req.query.token as string;
+    if (!token) return res.status(400).json({ valid: false });
+
+    const resetToken = storage.getPasswordResetToken(token);
+    if (!resetToken || resetToken.usedAt || new Date(resetToken.expiresAt) < new Date()) {
+      return res.json({ valid: false });
+    }
+    res.json({ valid: true });
+  });
 
   // === AUTH ROUTES ===
 
