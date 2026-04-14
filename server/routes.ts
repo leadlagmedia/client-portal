@@ -265,6 +265,1097 @@ export async function registerRoutes(server: Server, app: Express) {
       role: "issuer",
       createdAt: new Date().toISOString(),
     });
+
+
+    // ══════════════════════════════════════════════════
+    // SEED DASHBOARD DATA FOR ALL CLIENTS
+    // ══════════════════════════════════════════════════
+
+    // ── GraniteShares ──
+    const graniteshares = storage.getUserByEmail("wrhind@graniteshares.com")!;
+    [
+      { userId: graniteshares.id, label: "FA Introductions", value: "62", change: "0", changeDirection: "neutral", icon: "Users", sortOrder: 0 },
+      { userId: graniteshares.id, label: "Podcast Episodes", value: "4", change: "+1", changeDirection: "up", icon: "Video", sortOrder: 1 },
+      { userId: graniteshares.id, label: "Months Active", value: "12", change: "+1", changeDirection: "up", icon: "Calendar", sortOrder: 2 },
+      { userId: graniteshares.id, label: "Total Investment", value: "$215,836", change: "", changeDirection: "neutral", icon: "DollarSign", sortOrder: 3 },
+    ].forEach((k) => storage.createKpi(k));
+    [
+      { userId: graniteshares.id, type: "fa_intro", title: "FA Introductions — 10 scheduled", description: "10 advisor introductions in progress for 2026-04", date: "2026-04-15", status: "in_progress" },
+      { userId: graniteshares.id, type: "fa_intro", title: "FA Introductions — 12 completed", description: "12 advisor introduction calls completed for 2026-02", date: "2026-02-15", status: "completed" },
+      { userId: graniteshares.id, type: "fa_intro", title: "FA Introductions — 9 completed", description: "9 advisor introduction calls completed for 2026-01", date: "2026-01-15", status: "completed" },
+      { userId: graniteshares.id, type: "podcast", title: "Lead-Lag Live Appearance", description: "Podcast recorded — 1/14/26", date: "2026-01-25", status: "completed" },
+      { userId: graniteshares.id, type: "fa_intro", title: "FA Introductions — 6 completed", description: "6 advisor introduction calls completed for 2025-12", date: "2025-12-15", status: "completed" },
+      { userId: graniteshares.id, type: "fa_intro", title: "FA Introductions — 6 completed", description: "6 advisor introduction calls completed for 2025-11", date: "2025-11-15", status: "completed" },
+      { userId: graniteshares.id, type: "fa_intro", title: "FA Introductions — 4 completed", description: "4 advisor introduction calls completed for 2025-10", date: "2025-10-15", status: "completed" },
+      { userId: graniteshares.id, type: "podcast", title: "Lead-Lag Live Appearance", description: "Podcast recorded — 4/29/26", date: "2025-10-25", status: "completed" },
+    ].forEach((a) => storage.createActivity(a));
+    [
+      { userId: graniteshares.id, month: "2025-10", category: "FA Introductions", owed: 10, completed: 4 },
+      { userId: graniteshares.id, month: "2025-10", category: "Podcast Appearances", owed: 1, completed: 1 },
+      { userId: graniteshares.id, month: "2025-11", category: "FA Introductions", owed: 10, completed: 6 },
+      { userId: graniteshares.id, month: "2025-12", category: "FA Introductions", owed: 10, completed: 6 },
+      { userId: graniteshares.id, month: "2026-01", category: "FA Introductions", owed: 10, completed: 9 },
+      { userId: graniteshares.id, month: "2026-01", category: "Podcast Appearances", owed: 1, completed: 1 },
+      { userId: graniteshares.id, month: "2026-02", category: "FA Introductions", owed: 10, completed: 12 },
+      { userId: graniteshares.id, month: "2026-04", category: "FA Introductions", owed: 10, completed: 0 },
+    ].forEach((d) => storage.createDeliverable(d));
+    [
+      { month: "2025-02", fa_intros: 4, email_sends: 0, revenue: 16667 },
+      { month: "2025-09", fa_intros: 11, email_sends: 0, revenue: 16667 },
+      { month: "2025-10", fa_intros: 4, email_sends: 0, revenue: 16667 },
+      { month: "2025-11", fa_intros: 6, email_sends: 0, revenue: 16667 },
+      { month: "2025-12", fa_intros: 6, email_sends: 0, revenue: 16667 },
+      { month: "2026-01", fa_intros: 9, email_sends: 0, revenue: 16667 },
+      { month: "2026-02", fa_intros: 12, email_sends: 0, revenue: 16667 },
+      { month: "2026-04", fa_intros: 0, email_sends: 0, revenue: 16667 },
+    ].forEach((s) => {
+      storage.createMonthlyStat({ userId: graniteshares.id, month: s.month, metric: "fa_intros", value: s.fa_intros });
+      storage.createMonthlyStat({ userId: graniteshares.id, month: s.month, metric: "email_sends", value: s.email_sends });
+      storage.createMonthlyStat({ userId: graniteshares.id, month: s.month, metric: "revenue", value: s.revenue });
+    });
+
+    // ── Running Oak Capital ──
+    const runningoakcapital = storage.getUserByEmail("seth@runningoakcapital.com")!;
+    [
+      { userId: runningoakcapital.id, label: "FA Introductions", value: "59", change: "0", changeDirection: "neutral", icon: "Users", sortOrder: 0 },
+      { userId: runningoakcapital.id, label: "Sponsored Emails", value: "22", change: "0", changeDirection: "neutral", icon: "Mail", sortOrder: 1 },
+      { userId: runningoakcapital.id, label: "Podcast Episodes", value: "11", change: "+1", changeDirection: "up", icon: "Video", sortOrder: 2 },
+      { userId: runningoakcapital.id, label: "Months Active", value: "12", change: "+1", changeDirection: "up", icon: "Calendar", sortOrder: 3 },
+      { userId: runningoakcapital.id, label: "Total Investment", value: "$105,000", change: "", changeDirection: "neutral", icon: "DollarSign", sortOrder: 4 },
+    ].forEach((k) => storage.createKpi(k));
+    [
+      { userId: runningoakcapital.id, type: "fa_intro", title: "FA Introductions — 4 scheduled", description: "4 advisor introductions in progress for 2026-04", date: "2026-04-15", status: "in_progress" },
+      { userId: runningoakcapital.id, type: "fa_intro", title: "FA Introductions — 1 completed", description: "1 advisor introduction calls completed for 2026-03", date: "2026-03-15", status: "completed" },
+      { userId: runningoakcapital.id, type: "email_blast", title: "Sponsored Emails — 2 sent", description: "Lead-Lag Report email blasts for 2026-03", date: "2026-03-20", status: "completed" },
+      { userId: runningoakcapital.id, type: "podcast", title: "Lead-Lag Live Appearance", description: "Podcast recorded — 4/15/26", date: "2026-03-25", status: "completed" },
+      { userId: runningoakcapital.id, type: "fa_intro", title: "FA Introductions — 4 completed", description: "4 advisor introduction calls completed for 2026-02", date: "2026-02-15", status: "completed" },
+      { userId: runningoakcapital.id, type: "email_blast", title: "Sponsored Emails — 2 sent", description: "Lead-Lag Report email blasts for 2026-02", date: "2026-02-20", status: "completed" },
+      { userId: runningoakcapital.id, type: "podcast", title: "Lead-Lag Live Appearance", description: "Podcast recorded — 3/25/26", date: "2026-02-25", status: "completed" },
+      { userId: runningoakcapital.id, type: "fa_intro", title: "FA Introductions — 4 completed", description: "4 advisor introduction calls completed for 2026-01", date: "2026-01-15", status: "completed" },
+      { userId: runningoakcapital.id, type: "email_blast", title: "Sponsored Emails — 2 sent", description: "Lead-Lag Report email blasts for 2026-01", date: "2026-01-20", status: "completed" },
+      { userId: runningoakcapital.id, type: "podcast", title: "Lead-Lag Live Appearance", description: "Podcast recorded — 2/5/26", date: "2026-01-25", status: "completed" },
+      { userId: runningoakcapital.id, type: "fa_intro", title: "FA Introductions — 7 completed", description: "7 advisor introduction calls completed for 2025-12", date: "2025-12-15", status: "completed" },
+      { userId: runningoakcapital.id, type: "email_blast", title: "Sponsored Emails — 2 sent", description: "Lead-Lag Report email blasts for 2025-12", date: "2025-12-20", status: "completed" },
+      { userId: runningoakcapital.id, type: "podcast", title: "Lead-Lag Live Appearance", description: "Podcast recorded — 1/22/26", date: "2025-12-25", status: "completed" },
+      { userId: runningoakcapital.id, type: "fa_intro", title: "FA Introductions — 7 completed", description: "7 advisor introduction calls completed for 2025-11", date: "2025-11-15", status: "completed" },
+      { userId: runningoakcapital.id, type: "email_blast", title: "Sponsored Emails — 2 sent", description: "Lead-Lag Report email blasts for 2025-11", date: "2025-11-20", status: "completed" },
+    ].forEach((a) => storage.createActivity(a));
+    [
+      { userId: runningoakcapital.id, month: "2025-11", category: "FA Introductions", owed: 7, completed: 7 },
+      { userId: runningoakcapital.id, month: "2025-11", category: "Sponsored Emails", owed: 2, completed: 2 },
+      { userId: runningoakcapital.id, month: "2025-11", category: "Podcast Appearances", owed: 1, completed: 1 },
+      { userId: runningoakcapital.id, month: "2025-12", category: "FA Introductions", owed: 7, completed: 7 },
+      { userId: runningoakcapital.id, month: "2025-12", category: "Sponsored Emails", owed: 2, completed: 2 },
+      { userId: runningoakcapital.id, month: "2025-12", category: "Podcast Appearances", owed: 1, completed: 1 },
+      { userId: runningoakcapital.id, month: "2026-01", category: "FA Introductions", owed: 4, completed: 4 },
+      { userId: runningoakcapital.id, month: "2026-01", category: "Sponsored Emails", owed: 2, completed: 2 },
+      { userId: runningoakcapital.id, month: "2026-01", category: "Podcast Appearances", owed: 1, completed: 1 },
+      { userId: runningoakcapital.id, month: "2026-02", category: "FA Introductions", owed: 4, completed: 4 },
+      { userId: runningoakcapital.id, month: "2026-02", category: "Sponsored Emails", owed: 2, completed: 2 },
+      { userId: runningoakcapital.id, month: "2026-02", category: "Podcast Appearances", owed: 1, completed: 1 },
+      { userId: runningoakcapital.id, month: "2026-03", category: "FA Introductions", owed: 4, completed: 1 },
+      { userId: runningoakcapital.id, month: "2026-03", category: "Sponsored Emails", owed: 2, completed: 2 },
+      { userId: runningoakcapital.id, month: "2026-03", category: "Podcast Appearances", owed: 1, completed: 1 },
+      { userId: runningoakcapital.id, month: "2026-04", category: "FA Introductions", owed: 4, completed: 0 },
+      { userId: runningoakcapital.id, month: "2026-04", category: "Sponsored Emails", owed: 2, completed: 0 },
+    ].forEach((d) => storage.createDeliverable(d));
+    [
+      { month: "2025-09", fa_intros: 7, email_sends: 2, revenue: 10000 },
+      { month: "2025-10", fa_intros: 7, email_sends: 2, revenue: 10000 },
+      { month: "2025-11", fa_intros: 7, email_sends: 2, revenue: 10000 },
+      { month: "2025-12", fa_intros: 7, email_sends: 2, revenue: 10000 },
+      { month: "2026-01", fa_intros: 4, email_sends: 2, revenue: 10000 },
+      { month: "2026-02", fa_intros: 4, email_sends: 2, revenue: 10000 },
+      { month: "2026-03", fa_intros: 1, email_sends: 2, revenue: 10000 },
+      { month: "2026-04", fa_intros: 0, email_sends: 0, revenue: 10000 },
+    ].forEach((s) => {
+      storage.createMonthlyStat({ userId: runningoakcapital.id, month: s.month, metric: "fa_intros", value: s.fa_intros });
+      storage.createMonthlyStat({ userId: runningoakcapital.id, month: s.month, metric: "email_sends", value: s.email_sends });
+      storage.createMonthlyStat({ userId: runningoakcapital.id, month: s.month, metric: "revenue", value: s.revenue });
+    });
+
+    // ── Dynamic Wealth Group ──
+    const dynamicwealthgroup = storage.getUserByEmail("brad@dynamicwg.com")!;
+    [
+      { userId: dynamicwealthgroup.id, label: "FA Introductions", value: "27", change: "+1", changeDirection: "up", icon: "Users", sortOrder: 0 },
+      { userId: dynamicwealthgroup.id, label: "Sponsored Emails", value: "23", change: "+1", changeDirection: "up", icon: "Mail", sortOrder: 1 },
+      { userId: dynamicwealthgroup.id, label: "Podcast Episodes", value: "7", change: "+1", changeDirection: "up", icon: "Video", sortOrder: 2 },
+      { userId: dynamicwealthgroup.id, label: "Months Active", value: "11", change: "+1", changeDirection: "up", icon: "Calendar", sortOrder: 3 },
+      { userId: dynamicwealthgroup.id, label: "Total Investment", value: "$81,500", change: "", changeDirection: "neutral", icon: "DollarSign", sortOrder: 4 },
+    ].forEach((k) => storage.createKpi(k));
+    [
+      { userId: dynamicwealthgroup.id, type: "fa_intro", title: "FA Introductions — 1 completed", description: "1 advisor introduction calls completed for 2026-02", date: "2026-02-15", status: "completed" },
+      { userId: dynamicwealthgroup.id, type: "email_blast", title: "Sponsored Emails — 1 sent", description: "Lead-Lag Report email blasts for 2026-02", date: "2026-02-20", status: "completed" },
+      { userId: dynamicwealthgroup.id, type: "fa_intro", title: "FA Introductions — 2 completed", description: "2 advisor introduction calls completed for 2026-01", date: "2026-01-15", status: "completed" },
+      { userId: dynamicwealthgroup.id, type: "email_blast", title: "Sponsored Emails — 2 sent", description: "Lead-Lag Report email blasts for 2026-01", date: "2026-01-20", status: "completed" },
+      { userId: dynamicwealthgroup.id, type: "fa_intro", title: "FA Introductions — 2 completed", description: "2 advisor introduction calls completed for 2025-12", date: "2025-12-15", status: "completed" },
+      { userId: dynamicwealthgroup.id, type: "email_blast", title: "Sponsored Emails — 2 sent", description: "Lead-Lag Report email blasts for 2025-12", date: "2025-12-20", status: "completed" },
+      { userId: dynamicwealthgroup.id, type: "fa_intro", title: "FA Introductions — 5 completed", description: "5 advisor introduction calls completed for 2025-11", date: "2025-11-15", status: "completed" },
+      { userId: dynamicwealthgroup.id, type: "email_blast", title: "Sponsored Emails — 2 sent", description: "Lead-Lag Report email blasts for 2025-11", date: "2025-11-20", status: "completed" },
+      { userId: dynamicwealthgroup.id, type: "fa_intro", title: "FA Introductions — 2 completed", description: "2 advisor introduction calls completed for 2025-10", date: "2025-10-15", status: "completed" },
+      { userId: dynamicwealthgroup.id, type: "email_blast", title: "Sponsored Emails — 2 sent", description: "Lead-Lag Report email blasts for 2025-10", date: "2025-10-20", status: "completed" },
+      { userId: dynamicwealthgroup.id, type: "podcast", title: "Lead-Lag Live Appearance", description: "Podcast recorded — 10/30/25", date: "2025-10-25", status: "completed" },
+      { userId: dynamicwealthgroup.id, type: "fa_intro", title: "FA Introductions — 2 completed", description: "2 advisor introduction calls completed for 2025-09", date: "2025-09-15", status: "completed" },
+      { userId: dynamicwealthgroup.id, type: "email_blast", title: "Sponsored Emails — 2 sent", description: "Lead-Lag Report email blasts for 2025-09", date: "2025-09-20", status: "completed" },
+      { userId: dynamicwealthgroup.id, type: "podcast", title: "Lead-Lag Live Appearance", description: "Podcast recorded — Swapped FA Intro", date: "2025-09-25", status: "completed" },
+    ].forEach((a) => storage.createActivity(a));
+    [
+      { userId: dynamicwealthgroup.id, month: "2025-09", category: "FA Introductions", owed: 2, completed: 2 },
+      { userId: dynamicwealthgroup.id, month: "2025-09", category: "Sponsored Emails", owed: 2, completed: 2 },
+      { userId: dynamicwealthgroup.id, month: "2025-09", category: "Podcast Appearances", owed: 1, completed: 1 },
+      { userId: dynamicwealthgroup.id, month: "2025-10", category: "FA Introductions", owed: 2, completed: 2 },
+      { userId: dynamicwealthgroup.id, month: "2025-10", category: "Sponsored Emails", owed: 2, completed: 2 },
+      { userId: dynamicwealthgroup.id, month: "2025-10", category: "Podcast Appearances", owed: 1, completed: 1 },
+      { userId: dynamicwealthgroup.id, month: "2025-11", category: "FA Introductions", owed: 5, completed: 5 },
+      { userId: dynamicwealthgroup.id, month: "2025-11", category: "Sponsored Emails", owed: 2, completed: 2 },
+      { userId: dynamicwealthgroup.id, month: "2025-12", category: "FA Introductions", owed: 2, completed: 2 },
+      { userId: dynamicwealthgroup.id, month: "2025-12", category: "Sponsored Emails", owed: 2, completed: 2 },
+      { userId: dynamicwealthgroup.id, month: "2026-01", category: "FA Introductions", owed: 2, completed: 2 },
+      { userId: dynamicwealthgroup.id, month: "2026-01", category: "Sponsored Emails", owed: 2, completed: 2 },
+      { userId: dynamicwealthgroup.id, month: "2026-02", category: "FA Introductions", owed: 2, completed: 1 },
+      { userId: dynamicwealthgroup.id, month: "2026-02", category: "Sponsored Emails", owed: 2, completed: 1 },
+    ].forEach((d) => storage.createDeliverable(d));
+    [
+      { month: "2025-01", fa_intros: 2, email_sends: 2, revenue: 3000 },
+      { month: "2025-02", fa_intros: 2, email_sends: 2, revenue: 9500 },
+      { month: "2025-09", fa_intros: 2, email_sends: 2, revenue: 9500 },
+      { month: "2025-10", fa_intros: 2, email_sends: 2, revenue: 9500 },
+      { month: "2025-11", fa_intros: 5, email_sends: 2, revenue: 9500 },
+      { month: "2025-12", fa_intros: 2, email_sends: 2, revenue: 9500 },
+      { month: "2026-01", fa_intros: 2, email_sends: 2, revenue: 9500 },
+      { month: "2026-02", fa_intros: 1, email_sends: 1, revenue: 9500 },
+    ].forEach((s) => {
+      storage.createMonthlyStat({ userId: dynamicwealthgroup.id, month: s.month, metric: "fa_intros", value: s.fa_intros });
+      storage.createMonthlyStat({ userId: dynamicwealthgroup.id, month: s.month, metric: "email_sends", value: s.email_sends });
+      storage.createMonthlyStat({ userId: dynamicwealthgroup.id, month: s.month, metric: "revenue", value: s.revenue });
+    });
+
+    // ── SanJac Alpha ──
+    const sanjacalpha = storage.getUserByEmail("jimmy@sanjacalpha.com")!;
+    [
+      { userId: sanjacalpha.id, label: "FA Introductions", value: "34", change: "0", changeDirection: "neutral", icon: "Users", sortOrder: 0 },
+      { userId: sanjacalpha.id, label: "Sponsored Emails", value: "16", change: "0", changeDirection: "neutral", icon: "Mail", sortOrder: 1 },
+      { userId: sanjacalpha.id, label: "Months Active", value: "9", change: "+1", changeDirection: "up", icon: "Calendar", sortOrder: 2 },
+      { userId: sanjacalpha.id, label: "Total Investment", value: "$49,000", change: "", changeDirection: "neutral", icon: "DollarSign", sortOrder: 3 },
+    ].forEach((k) => storage.createKpi(k));
+    [
+      { userId: sanjacalpha.id, type: "fa_intro", title: "FA Introductions — 7 scheduled", description: "7 advisor introductions in progress for 2026-04", date: "2026-04-15", status: "in_progress" },
+      { userId: sanjacalpha.id, type: "fa_intro", title: "FA Introductions — 2 completed", description: "2 advisor introduction calls completed for 2026-03", date: "2026-03-15", status: "completed" },
+      { userId: sanjacalpha.id, type: "email_blast", title: "Sponsored Emails — 2 sent", description: "Lead-Lag Report email blasts for 2026-03", date: "2026-03-20", status: "completed" },
+      { userId: sanjacalpha.id, type: "fa_intro", title: "FA Introductions — 2 completed", description: "2 advisor introduction calls completed for 2026-02", date: "2026-02-15", status: "completed" },
+      { userId: sanjacalpha.id, type: "email_blast", title: "Sponsored Emails — 2 sent", description: "Lead-Lag Report email blasts for 2026-02", date: "2026-02-20", status: "completed" },
+      { userId: sanjacalpha.id, type: "fa_intro", title: "FA Introductions — 5 completed", description: "5 advisor introduction calls completed for 2026-01", date: "2026-01-15", status: "completed" },
+      { userId: sanjacalpha.id, type: "email_blast", title: "Sponsored Emails — 2 sent", description: "Lead-Lag Report email blasts for 2026-01", date: "2026-01-20", status: "completed" },
+      { userId: sanjacalpha.id, type: "fa_intro", title: "FA Introductions — 5 completed", description: "5 advisor introduction calls completed for 2025-12", date: "2025-12-15", status: "completed" },
+      { userId: sanjacalpha.id, type: "email_blast", title: "Sponsored Emails — 2 sent", description: "Lead-Lag Report email blasts for 2025-12", date: "2025-12-20", status: "completed" },
+      { userId: sanjacalpha.id, type: "fa_intro", title: "FA Introductions — 5 completed", description: "5 advisor introduction calls completed for 2025-11", date: "2025-11-15", status: "completed" },
+      { userId: sanjacalpha.id, type: "email_blast", title: "Sponsored Emails — 2 sent", description: "Lead-Lag Report email blasts for 2025-11", date: "2025-11-20", status: "completed" },
+    ].forEach((a) => storage.createActivity(a));
+    [
+      { userId: sanjacalpha.id, month: "2025-11", category: "FA Introductions", owed: 5, completed: 5 },
+      { userId: sanjacalpha.id, month: "2025-11", category: "Sponsored Emails", owed: 2, completed: 2 },
+      { userId: sanjacalpha.id, month: "2025-12", category: "FA Introductions", owed: 5, completed: 5 },
+      { userId: sanjacalpha.id, month: "2025-12", category: "Sponsored Emails", owed: 2, completed: 2 },
+      { userId: sanjacalpha.id, month: "2026-01", category: "FA Introductions", owed: 5, completed: 5 },
+      { userId: sanjacalpha.id, month: "2026-01", category: "Sponsored Emails", owed: 2, completed: 2 },
+      { userId: sanjacalpha.id, month: "2026-02", category: "FA Introductions", owed: 5, completed: 2 },
+      { userId: sanjacalpha.id, month: "2026-02", category: "Sponsored Emails", owed: 2, completed: 2 },
+      { userId: sanjacalpha.id, month: "2026-03", category: "FA Introductions", owed: 7, completed: 2 },
+      { userId: sanjacalpha.id, month: "2026-03", category: "Sponsored Emails", owed: 2, completed: 2 },
+      { userId: sanjacalpha.id, month: "2026-04", category: "FA Introductions", owed: 7, completed: 0 },
+      { userId: sanjacalpha.id, month: "2026-04", category: "Sponsored Emails", owed: 2, completed: 0 },
+    ].forEach((d) => storage.createDeliverable(d));
+    [
+      { month: "2025-09", fa_intros: 5, email_sends: 2, revenue: 5000 },
+      { month: "2025-10", fa_intros: 5, email_sends: 2, revenue: 5000 },
+      { month: "2025-11", fa_intros: 5, email_sends: 2, revenue: 5000 },
+      { month: "2025-12", fa_intros: 5, email_sends: 2, revenue: 5000 },
+      { month: "2026-01", fa_intros: 5, email_sends: 2, revenue: 5000 },
+      { month: "2026-02", fa_intros: 2, email_sends: 2, revenue: 5000 },
+      { month: "2026-03", fa_intros: 2, email_sends: 2, revenue: 7000 },
+      { month: "2026-04", fa_intros: 0, email_sends: 0, revenue: 7000 },
+    ].forEach((s) => {
+      storage.createMonthlyStat({ userId: sanjacalpha.id, month: s.month, metric: "fa_intros", value: s.fa_intros });
+      storage.createMonthlyStat({ userId: sanjacalpha.id, month: s.month, metric: "email_sends", value: s.email_sends });
+      storage.createMonthlyStat({ userId: sanjacalpha.id, month: s.month, metric: "revenue", value: s.revenue });
+    });
+
+    // ── KraneShares ──
+    const kraneshares = storage.getUserByEmail("joe.demmler@kraneshares.com")!;
+    [
+      { userId: kraneshares.id, label: "Podcast Episodes", value: "8", change: "+1", changeDirection: "up", icon: "Video", sortOrder: 0 },
+      { userId: kraneshares.id, label: "Months Active", value: "9", change: "+1", changeDirection: "up", icon: "Calendar", sortOrder: 1 },
+      { userId: kraneshares.id, label: "Total Investment", value: "$90,000", change: "", changeDirection: "neutral", icon: "DollarSign", sortOrder: 2 },
+    ].forEach((k) => storage.createKpi(k));
+    [
+      { userId: kraneshares.id, type: "podcast", title: "Lead-Lag Live Appearance", description: "Podcast recorded — 4/22/26", date: "2026-03-25", status: "completed" },
+      { userId: kraneshares.id, type: "podcast", title: "Lead-Lag Live Appearance", description: "Podcast recorded — 7/1/25, 4/23/26", date: "2026-02-25", status: "completed" },
+      { userId: kraneshares.id, type: "podcast", title: "Lead-Lag Live Appearance", description: "Podcast recorded — 2/11/26, 2/12/26", date: "2026-01-25", status: "completed" },
+      { userId: kraneshares.id, type: "podcast", title: "Lead-Lag Live Appearance", description: "Podcast recorded — 2/18/26, 3/30/26", date: "2025-12-25", status: "completed" },
+      { userId: kraneshares.id, type: "podcast", title: "Lead-Lag Live Appearance", description: "Podcast recorded — 12/3/25, 3/23/26", date: "2025-11-25", status: "completed" },
+    ].forEach((a) => storage.createActivity(a));
+    [
+      { userId: kraneshares.id, month: "2025-11", category: "Podcast Appearances", owed: 1, completed: 1 },
+      { userId: kraneshares.id, month: "2025-12", category: "Podcast Appearances", owed: 1, completed: 1 },
+      { userId: kraneshares.id, month: "2026-01", category: "Podcast Appearances", owed: 1, completed: 1 },
+      { userId: kraneshares.id, month: "2026-02", category: "Podcast Appearances", owed: 1, completed: 1 },
+      { userId: kraneshares.id, month: "2026-03", category: "Podcast Appearances", owed: 1, completed: 1 },
+    ].forEach((d) => storage.createDeliverable(d));
+    [
+      { month: "2025-09", fa_intros: 0, email_sends: 0, revenue: 10000 },
+      { month: "2025-10", fa_intros: 0, email_sends: 0, revenue: 10000 },
+      { month: "2025-11", fa_intros: 0, email_sends: 0, revenue: 10000 },
+      { month: "2025-12", fa_intros: 0, email_sends: 0, revenue: 10000 },
+      { month: "2026-01", fa_intros: 0, email_sends: 0, revenue: 10000 },
+      { month: "2026-02", fa_intros: 0, email_sends: 0, revenue: 10000 },
+      { month: "2026-03", fa_intros: 0, email_sends: 0, revenue: 10000 },
+      { month: "2026-04", fa_intros: 0, email_sends: 0, revenue: 10000 },
+    ].forEach((s) => {
+      storage.createMonthlyStat({ userId: kraneshares.id, month: s.month, metric: "fa_intros", value: s.fa_intros });
+      storage.createMonthlyStat({ userId: kraneshares.id, month: s.month, metric: "email_sends", value: s.email_sends });
+      storage.createMonthlyStat({ userId: kraneshares.id, month: s.month, metric: "revenue", value: s.revenue });
+    });
+
+    // ── USCF Investments ──
+    const uscfinvestments = storage.getUserByEmail("jlove@uscfinvestments.com")!;
+    [
+      { userId: uscfinvestments.id, label: "FA Introductions", value: "4", change: "0", changeDirection: "neutral", icon: "Users", sortOrder: 0 },
+      { userId: uscfinvestments.id, label: "Months Active", value: "9", change: "+1", changeDirection: "up", icon: "Calendar", sortOrder: 1 },
+      { userId: uscfinvestments.id, label: "Total Investment", value: "$63,000", change: "", changeDirection: "neutral", icon: "DollarSign", sortOrder: 2 },
+    ].forEach((k) => storage.createKpi(k));
+    [
+      { userId: uscfinvestments.id, type: "fa_intro", title: "FA Introductions — 2 scheduled", description: "2 advisor introductions in progress for 2026-04", date: "2026-04-15", status: "in_progress" },
+      { userId: uscfinvestments.id, type: "fa_intro", title: "FA Introductions — 2 scheduled", description: "2 advisor introductions in progress for 2026-03", date: "2026-03-15", status: "in_progress" },
+      { userId: uscfinvestments.id, type: "fa_intro", title: "FA Introductions — 2 completed", description: "2 advisor introduction calls completed for 2026-02", date: "2026-02-15", status: "completed" },
+      { userId: uscfinvestments.id, type: "fa_intro", title: "FA Introductions — 2 completed", description: "2 advisor introduction calls completed for 2026-01", date: "2026-01-15", status: "completed" },
+    ].forEach((a) => storage.createActivity(a));
+    [
+      { userId: uscfinvestments.id, month: "2026-01", category: "FA Introductions", owed: 2, completed: 2 },
+      { userId: uscfinvestments.id, month: "2026-02", category: "FA Introductions", owed: 2, completed: 2 },
+      { userId: uscfinvestments.id, month: "2026-03", category: "FA Introductions", owed: 2, completed: 0 },
+      { userId: uscfinvestments.id, month: "2026-04", category: "FA Introductions", owed: 2, completed: 0 },
+    ].forEach((d) => storage.createDeliverable(d));
+    [
+      { month: "2025-09", fa_intros: 0, email_sends: 0, revenue: 7000 },
+      { month: "2025-10", fa_intros: 0, email_sends: 0, revenue: 7000 },
+      { month: "2025-11", fa_intros: 0, email_sends: 0, revenue: 7000 },
+      { month: "2025-12", fa_intros: 0, email_sends: 0, revenue: 7000 },
+      { month: "2026-01", fa_intros: 2, email_sends: 0, revenue: 7000 },
+      { month: "2026-02", fa_intros: 2, email_sends: 0, revenue: 7000 },
+      { month: "2026-03", fa_intros: 0, email_sends: 0, revenue: 7000 },
+      { month: "2026-04", fa_intros: 0, email_sends: 0, revenue: 7000 },
+    ].forEach((s) => {
+      storage.createMonthlyStat({ userId: uscfinvestments.id, month: s.month, metric: "fa_intros", value: s.fa_intros });
+      storage.createMonthlyStat({ userId: uscfinvestments.id, month: s.month, metric: "email_sends", value: s.email_sends });
+      storage.createMonthlyStat({ userId: uscfinvestments.id, month: s.month, metric: "revenue", value: s.revenue });
+    });
+
+    // ── Infrastructure Capital Advisors ──
+    const infrastructurecapitaladvisors = storage.getUserByEmail("jhatfield@infracapfunds.com")!;
+    [
+      { userId: infrastructurecapitaladvisors.id, label: "Podcast Episodes", value: "10", change: "+1", changeDirection: "up", icon: "Video", sortOrder: 0 },
+      { userId: infrastructurecapitaladvisors.id, label: "Months Active", value: "10", change: "+1", changeDirection: "up", icon: "Calendar", sortOrder: 1 },
+      { userId: infrastructurecapitaladvisors.id, label: "Total Investment", value: "$118,000", change: "", changeDirection: "neutral", icon: "DollarSign", sortOrder: 2 },
+    ].forEach((k) => storage.createKpi(k));
+    [
+      { userId: infrastructurecapitaladvisors.id, type: "podcast", title: "Lead-Lag Live Appearance", description: "Podcast recorded — Income Institute YouTube - weekly 30min clips w/ Jay Hatfield", date: "2026-04-25", status: "completed" },
+      { userId: infrastructurecapitaladvisors.id, type: "podcast", title: "Lead-Lag Live Appearance", description: "Podcast recorded — Transitioned to Income Institute YouTube (weekly 30min clips w/ Jay Hatfield) - replaces all LL Live owed", date: "2026-03-25", status: "completed" },
+      { userId: infrastructurecapitaladvisors.id, type: "podcast", title: "Lead-Lag Live Appearance", description: "Podcast recorded — Transitioned to Income Institute YouTube (weekly 30min clips w/ Jay Hatfield) - replaces all LL Live owed", date: "2026-02-25", status: "completed" },
+      { userId: infrastructurecapitaladvisors.id, type: "podcast", title: "Lead-Lag Live Appearance", description: "Podcast recorded — 4/13/26, 3/26/26", date: "2026-01-25", status: "completed" },
+      { userId: infrastructurecapitaladvisors.id, type: "podcast", title: "Lead-Lag Live Appearance", description: "Podcast recorded — 12/11/25, 4/13/26", date: "2025-12-25", status: "completed" },
+      { userId: infrastructurecapitaladvisors.id, type: "podcast", title: "Lead-Lag Live Appearance", description: "Podcast recorded — 11/13/25, 11/20/25", date: "2025-11-25", status: "completed" },
+    ].forEach((a) => storage.createActivity(a));
+    [
+      { userId: infrastructurecapitaladvisors.id, month: "2025-11", category: "Podcast Appearances", owed: 1, completed: 1 },
+      { userId: infrastructurecapitaladvisors.id, month: "2025-12", category: "Podcast Appearances", owed: 1, completed: 1 },
+      { userId: infrastructurecapitaladvisors.id, month: "2026-01", category: "Podcast Appearances", owed: 1, completed: 1 },
+      { userId: infrastructurecapitaladvisors.id, month: "2026-02", category: "Podcast Appearances", owed: 1, completed: 1 },
+      { userId: infrastructurecapitaladvisors.id, month: "2026-03", category: "Podcast Appearances", owed: 1, completed: 1 },
+      { userId: infrastructurecapitaladvisors.id, month: "2026-04", category: "Podcast Appearances", owed: 1, completed: 1 },
+    ].forEach((d) => storage.createDeliverable(d));
+    [
+      { month: "2025-09", fa_intros: 0, email_sends: 0, revenue: 12000 },
+      { month: "2025-10", fa_intros: 0, email_sends: 0, revenue: 12000 },
+      { month: "2025-11", fa_intros: 0, email_sends: 0, revenue: 12000 },
+      { month: "2025-12", fa_intros: 0, email_sends: 0, revenue: 12000 },
+      { month: "2026-01", fa_intros: 0, email_sends: 0, revenue: 12000 },
+      { month: "2026-02", fa_intros: 0, email_sends: 0, revenue: 12000 },
+      { month: "2026-03", fa_intros: 0, email_sends: 0, revenue: 12000 },
+      { month: "2026-04", fa_intros: 0, email_sends: 0, revenue: 12000 },
+    ].forEach((s) => {
+      storage.createMonthlyStat({ userId: infrastructurecapitaladvisors.id, month: s.month, metric: "fa_intros", value: s.fa_intros });
+      storage.createMonthlyStat({ userId: infrastructurecapitaladvisors.id, month: s.month, metric: "email_sends", value: s.email_sends });
+      storage.createMonthlyStat({ userId: infrastructurecapitaladvisors.id, month: s.month, metric: "revenue", value: s.revenue });
+    });
+
+    // ── TappAlpha ──
+    const tappalpha = storage.getUserByEmail("mloukas@tappalpha.com")!;
+    [
+      { userId: tappalpha.id, label: "FA Introductions", value: "52", change: "0", changeDirection: "neutral", icon: "Users", sortOrder: 0 },
+      { userId: tappalpha.id, label: "Sponsored Emails", value: "17", change: "0", changeDirection: "neutral", icon: "Mail", sortOrder: 1 },
+      { userId: tappalpha.id, label: "Podcast Episodes", value: "2", change: "+1", changeDirection: "up", icon: "Video", sortOrder: 2 },
+      { userId: tappalpha.id, label: "Months Active", value: "12", change: "+1", changeDirection: "up", icon: "Calendar", sortOrder: 3 },
+      { userId: tappalpha.id, label: "Total Investment", value: "$62,000", change: "", changeDirection: "neutral", icon: "DollarSign", sortOrder: 4 },
+    ].forEach((k) => storage.createKpi(k));
+    [
+      { userId: tappalpha.id, type: "fa_intro", title: "FA Introductions — 5 scheduled", description: "5 advisor introductions in progress for 2026-04", date: "2026-04-15", status: "in_progress" },
+      { userId: tappalpha.id, type: "fa_intro", title: "FA Introductions — 5 scheduled", description: "5 advisor introductions in progress for 2026-03", date: "2026-03-15", status: "in_progress" },
+      { userId: tappalpha.id, type: "email_blast", title: "Sponsored Emails — 4 sent", description: "Lead-Lag Report email blasts for 2026-03", date: "2026-03-20", status: "completed" },
+      { userId: tappalpha.id, type: "fa_intro", title: "FA Introductions — 3 completed", description: "3 advisor introduction calls completed for 2026-02", date: "2026-02-15", status: "completed" },
+      { userId: tappalpha.id, type: "email_blast", title: "Sponsored Emails — 4 sent", description: "Lead-Lag Report email blasts for 2026-02", date: "2026-02-20", status: "completed" },
+      { userId: tappalpha.id, type: "fa_intro", title: "FA Introductions — 4 completed", description: "4 advisor introduction calls completed for 2026-01", date: "2026-01-15", status: "completed" },
+      { userId: tappalpha.id, type: "email_blast", title: "Sponsored Emails — 4 sent", description: "Lead-Lag Report email blasts for 2026-01", date: "2026-01-20", status: "completed" },
+      { userId: tappalpha.id, type: "fa_intro", title: "FA Introductions — 5 completed", description: "5 advisor introduction calls completed for 2025-12", date: "2025-12-15", status: "completed" },
+      { userId: tappalpha.id, type: "email_blast", title: "Sponsored Emails — 1 sent", description: "Lead-Lag Report email blasts for 2025-12", date: "2025-12-20", status: "completed" },
+      { userId: tappalpha.id, type: "fa_intro", title: "FA Introductions — 5 completed", description: "5 advisor introduction calls completed for 2025-11", date: "2025-11-15", status: "completed" },
+      { userId: tappalpha.id, type: "email_blast", title: "Sponsored Emails — 1 sent", description: "Lead-Lag Report email blasts for 2025-11", date: "2025-11-20", status: "completed" },
+    ].forEach((a) => storage.createActivity(a));
+    [
+      { userId: tappalpha.id, month: "2025-11", category: "FA Introductions", owed: 5, completed: 5 },
+      { userId: tappalpha.id, month: "2025-11", category: "Sponsored Emails", owed: 1, completed: 1 },
+      { userId: tappalpha.id, month: "2025-12", category: "FA Introductions", owed: 5, completed: 5 },
+      { userId: tappalpha.id, month: "2025-12", category: "Sponsored Emails", owed: 1, completed: 1 },
+      { userId: tappalpha.id, month: "2026-01", category: "FA Introductions", owed: 5, completed: 4 },
+      { userId: tappalpha.id, month: "2026-01", category: "Sponsored Emails", owed: 4, completed: 4 },
+      { userId: tappalpha.id, month: "2026-02", category: "FA Introductions", owed: 5, completed: 3 },
+      { userId: tappalpha.id, month: "2026-02", category: "Sponsored Emails", owed: 4, completed: 4 },
+      { userId: tappalpha.id, month: "2026-03", category: "FA Introductions", owed: 5, completed: 0 },
+      { userId: tappalpha.id, month: "2026-03", category: "Sponsored Emails", owed: 4, completed: 4 },
+      { userId: tappalpha.id, month: "2026-04", category: "FA Introductions", owed: 5, completed: 0 },
+      { userId: tappalpha.id, month: "2026-04", category: "Sponsored Emails", owed: 4, completed: 0 },
+    ].forEach((d) => storage.createDeliverable(d));
+    [
+      { month: "2025-09", fa_intros: 5, email_sends: 1, revenue: 3000 },
+      { month: "2025-10", fa_intros: 5, email_sends: 1, revenue: 5000 },
+      { month: "2025-11", fa_intros: 5, email_sends: 1, revenue: 5000 },
+      { month: "2025-12", fa_intros: 5, email_sends: 1, revenue: 5000 },
+      { month: "2026-01", fa_intros: 4, email_sends: 4, revenue: 7000 },
+      { month: "2026-02", fa_intros: 3, email_sends: 4, revenue: 5000 },
+      { month: "2026-03", fa_intros: 0, email_sends: 4, revenue: 5000 },
+      { month: "2026-04", fa_intros: 0, email_sends: 0, revenue: 5000 },
+    ].forEach((s) => {
+      storage.createMonthlyStat({ userId: tappalpha.id, month: s.month, metric: "fa_intros", value: s.fa_intros });
+      storage.createMonthlyStat({ userId: tappalpha.id, month: s.month, metric: "email_sends", value: s.email_sends });
+      storage.createMonthlyStat({ userId: tappalpha.id, month: s.month, metric: "revenue", value: s.revenue });
+    });
+
+    // ── Distillate Capital ──
+    const distillatecapital = storage.getUserByEmail("jolsen@distillatecapital.com")!;
+    [
+      { userId: distillatecapital.id, label: "FA Introductions", value: "32", change: "+2", changeDirection: "up", icon: "Users", sortOrder: 0 },
+      { userId: distillatecapital.id, label: "Sponsored Emails", value: "14", change: "+2", changeDirection: "up", icon: "Mail", sortOrder: 1 },
+      { userId: distillatecapital.id, label: "Months Active", value: "7", change: "+1", changeDirection: "up", icon: "Calendar", sortOrder: 2 },
+      { userId: distillatecapital.id, label: "Total Investment", value: "$35,000", change: "", changeDirection: "neutral", icon: "DollarSign", sortOrder: 3 },
+    ].forEach((k) => storage.createKpi(k));
+    [
+      { userId: distillatecapital.id, type: "fa_intro", title: "FA Introductions — 2 completed", description: "2 advisor introduction calls completed for 2026-03", date: "2026-03-15", status: "completed" },
+      { userId: distillatecapital.id, type: "email_blast", title: "Sponsored Emails — 2 sent", description: "Lead-Lag Report email blasts for 2026-03", date: "2026-03-20", status: "completed" },
+      { userId: distillatecapital.id, type: "fa_intro", title: "FA Introductions — 5 completed", description: "5 advisor introduction calls completed for 2026-02", date: "2026-02-15", status: "completed" },
+      { userId: distillatecapital.id, type: "email_blast", title: "Sponsored Emails — 2 sent", description: "Lead-Lag Report email blasts for 2026-02", date: "2026-02-20", status: "completed" },
+      { userId: distillatecapital.id, type: "fa_intro", title: "FA Introductions — 5 completed", description: "5 advisor introduction calls completed for 2026-01", date: "2026-01-15", status: "completed" },
+      { userId: distillatecapital.id, type: "email_blast", title: "Sponsored Emails — 2 sent", description: "Lead-Lag Report email blasts for 2026-01", date: "2026-01-20", status: "completed" },
+      { userId: distillatecapital.id, type: "fa_intro", title: "FA Introductions — 5 completed", description: "5 advisor introduction calls completed for 2025-12", date: "2025-12-15", status: "completed" },
+      { userId: distillatecapital.id, type: "email_blast", title: "Sponsored Emails — 2 sent", description: "Lead-Lag Report email blasts for 2025-12", date: "2025-12-20", status: "completed" },
+      { userId: distillatecapital.id, type: "fa_intro", title: "FA Introductions — 5 completed", description: "5 advisor introduction calls completed for 2025-11", date: "2025-11-15", status: "completed" },
+      { userId: distillatecapital.id, type: "email_blast", title: "Sponsored Emails — 2 sent", description: "Lead-Lag Report email blasts for 2025-11", date: "2025-11-20", status: "completed" },
+      { userId: distillatecapital.id, type: "fa_intro", title: "FA Introductions — 5 completed", description: "5 advisor introduction calls completed for 2025-10", date: "2025-10-15", status: "completed" },
+      { userId: distillatecapital.id, type: "email_blast", title: "Sponsored Emails — 2 sent", description: "Lead-Lag Report email blasts for 2025-10", date: "2025-10-20", status: "completed" },
+    ].forEach((a) => storage.createActivity(a));
+    [
+      { userId: distillatecapital.id, month: "2025-10", category: "FA Introductions", owed: 5, completed: 5 },
+      { userId: distillatecapital.id, month: "2025-10", category: "Sponsored Emails", owed: 2, completed: 2 },
+      { userId: distillatecapital.id, month: "2025-11", category: "FA Introductions", owed: 5, completed: 5 },
+      { userId: distillatecapital.id, month: "2025-11", category: "Sponsored Emails", owed: 2, completed: 2 },
+      { userId: distillatecapital.id, month: "2025-12", category: "FA Introductions", owed: 5, completed: 5 },
+      { userId: distillatecapital.id, month: "2025-12", category: "Sponsored Emails", owed: 2, completed: 2 },
+      { userId: distillatecapital.id, month: "2026-01", category: "FA Introductions", owed: 5, completed: 5 },
+      { userId: distillatecapital.id, month: "2026-01", category: "Sponsored Emails", owed: 2, completed: 2 },
+      { userId: distillatecapital.id, month: "2026-02", category: "FA Introductions", owed: 5, completed: 5 },
+      { userId: distillatecapital.id, month: "2026-02", category: "Sponsored Emails", owed: 2, completed: 2 },
+      { userId: distillatecapital.id, month: "2026-03", category: "FA Introductions", owed: 5, completed: 2 },
+      { userId: distillatecapital.id, month: "2026-03", category: "Sponsored Emails", owed: 2, completed: 2 },
+    ].forEach((d) => storage.createDeliverable(d));
+    [
+      { month: "2025-09", fa_intros: 5, email_sends: 2, revenue: 5000 },
+      { month: "2025-10", fa_intros: 5, email_sends: 2, revenue: 5000 },
+      { month: "2025-11", fa_intros: 5, email_sends: 2, revenue: 5000 },
+      { month: "2025-12", fa_intros: 5, email_sends: 2, revenue: 5000 },
+      { month: "2026-01", fa_intros: 5, email_sends: 2, revenue: 5000 },
+      { month: "2026-02", fa_intros: 5, email_sends: 2, revenue: 5000 },
+      { month: "2026-03", fa_intros: 2, email_sends: 2, revenue: 5000 },
+    ].forEach((s) => {
+      storage.createMonthlyStat({ userId: distillatecapital.id, month: s.month, metric: "fa_intros", value: s.fa_intros });
+      storage.createMonthlyStat({ userId: distillatecapital.id, month: s.month, metric: "email_sends", value: s.email_sends });
+      storage.createMonthlyStat({ userId: distillatecapital.id, month: s.month, metric: "revenue", value: s.revenue });
+    });
+
+    // ── AGF ──
+    const agf = storage.createUser({
+      email: "kevin.collins@agf.com",
+      password: bcrypt.hashSync("agf2026", 10),
+      name: "Kevin Collins",
+      company: "AGF",
+      role: "issuer",
+      createdAt: new Date().toISOString(),
+    });
+    [
+      { userId: agf.id, label: "FA Introductions", value: "32", change: "0", changeDirection: "neutral", icon: "Users", sortOrder: 0 },
+      { userId: agf.id, label: "Months Active", value: "12", change: "+1", changeDirection: "up", icon: "Calendar", sortOrder: 1 },
+      { userId: agf.id, label: "Total Investment", value: "$48,000", change: "", changeDirection: "neutral", icon: "DollarSign", sortOrder: 2 },
+    ].forEach((k) => storage.createKpi(k));
+    [
+      { userId: agf.id, type: "fa_intro", title: "FA Introductions — 4 scheduled", description: "4 advisor introductions in progress for 2026-04", date: "2026-04-15", status: "in_progress" },
+      { userId: agf.id, type: "fa_intro", title: "FA Introductions — 4 scheduled", description: "4 advisor introductions in progress for 2026-03", date: "2026-03-15", status: "in_progress" },
+      { userId: agf.id, type: "fa_intro", title: "FA Introductions — 1 completed", description: "1 advisor introduction calls completed for 2026-02", date: "2026-02-15", status: "completed" },
+      { userId: agf.id, type: "fa_intro", title: "FA Introductions — 2 completed", description: "2 advisor introduction calls completed for 2026-01", date: "2026-01-15", status: "completed" },
+      { userId: agf.id, type: "fa_intro", title: "FA Introductions — 3 completed", description: "3 advisor introduction calls completed for 2025-12", date: "2025-12-15", status: "completed" },
+      { userId: agf.id, type: "fa_intro", title: "FA Introductions — 4 completed", description: "4 advisor introduction calls completed for 2025-11", date: "2025-11-15", status: "completed" },
+    ].forEach((a) => storage.createActivity(a));
+    [
+      { userId: agf.id, month: "2025-11", category: "FA Introductions", owed: 4, completed: 4 },
+      { userId: agf.id, month: "2025-12", category: "FA Introductions", owed: 4, completed: 3 },
+      { userId: agf.id, month: "2026-01", category: "FA Introductions", owed: 4, completed: 2 },
+      { userId: agf.id, month: "2026-02", category: "FA Introductions", owed: 4, completed: 1 },
+      { userId: agf.id, month: "2026-03", category: "FA Introductions", owed: 4, completed: 0 },
+      { userId: agf.id, month: "2026-04", category: "FA Introductions", owed: 4, completed: 0 },
+    ].forEach((d) => storage.createDeliverable(d));
+    [
+      { month: "2025-09", fa_intros: 6, email_sends: 0, revenue: 6000 },
+      { month: "2025-10", fa_intros: 4, email_sends: 0, revenue: 4000 },
+      { month: "2025-11", fa_intros: 4, email_sends: 0, revenue: 4000 },
+      { month: "2025-12", fa_intros: 3, email_sends: 0, revenue: 4000 },
+      { month: "2026-01", fa_intros: 2, email_sends: 0, revenue: 4000 },
+      { month: "2026-02", fa_intros: 1, email_sends: 0, revenue: 4000 },
+      { month: "2026-03", fa_intros: 0, email_sends: 0, revenue: 4000 },
+      { month: "2026-04", fa_intros: 0, email_sends: 0, revenue: 4000 },
+    ].forEach((s) => {
+      storage.createMonthlyStat({ userId: agf.id, month: s.month, metric: "fa_intros", value: s.fa_intros });
+      storage.createMonthlyStat({ userId: agf.id, month: s.month, metric: "email_sends", value: s.email_sends });
+      storage.createMonthlyStat({ userId: agf.id, month: s.month, metric: "revenue", value: s.revenue });
+    });
+
+    // ── Tuttle Capital ──
+    const tuttlecapital = storage.createUser({
+      email: "matt@tuttlecap.com",
+      password: bcrypt.hashSync("tuttle2026", 10),
+      name: "Matt Tuttle",
+      company: "Tuttle Capital",
+      role: "issuer",
+      createdAt: new Date().toISOString(),
+    });
+    [
+      { userId: tuttlecapital.id, label: "Months Active", value: "3", change: "+1", changeDirection: "up", icon: "Calendar", sortOrder: 0 },
+      { userId: tuttlecapital.id, label: "Total Investment", value: "$12,000", change: "", changeDirection: "neutral", icon: "DollarSign", sortOrder: 1 },
+    ].forEach((k) => storage.createKpi(k));
+    [
+      { month: "2026-02", fa_intros: 0, email_sends: 0, revenue: 4000 },
+      { month: "2026-03", fa_intros: 0, email_sends: 0, revenue: 4000 },
+      { month: "2026-04", fa_intros: 0, email_sends: 0, revenue: 4000 },
+    ].forEach((s) => {
+      storage.createMonthlyStat({ userId: tuttlecapital.id, month: s.month, metric: "fa_intros", value: s.fa_intros });
+      storage.createMonthlyStat({ userId: tuttlecapital.id, month: s.month, metric: "email_sends", value: s.email_sends });
+      storage.createMonthlyStat({ userId: tuttlecapital.id, month: s.month, metric: "revenue", value: s.revenue });
+    });
+
+    // ── Davis Advisors ──
+    const davisadvisors = storage.createUser({
+      email: "advisor@davisadvisors.com",
+      password: bcrypt.hashSync("davis2026", 10),
+      name: "Davis Advisors Team",
+      company: "Davis Advisors",
+      role: "issuer",
+      createdAt: new Date().toISOString(),
+    });
+    [
+      { userId: davisadvisors.id, label: "FA Introductions", value: "27", change: "0", changeDirection: "neutral", icon: "Users", sortOrder: 0 },
+      { userId: davisadvisors.id, label: "Sponsored Emails", value: "14", change: "0", changeDirection: "neutral", icon: "Mail", sortOrder: 1 },
+      { userId: davisadvisors.id, label: "Podcast Episodes", value: "4", change: "+1", changeDirection: "up", icon: "Video", sortOrder: 2 },
+      { userId: davisadvisors.id, label: "Months Active", value: "13", change: "+1", changeDirection: "up", icon: "Calendar", sortOrder: 3 },
+      { userId: davisadvisors.id, label: "Total Investment", value: "$49,000", change: "", changeDirection: "neutral", icon: "DollarSign", sortOrder: 4 },
+    ].forEach((k) => storage.createKpi(k));
+    [
+      { userId: davisadvisors.id, type: "fa_intro", title: "FA Introductions — 3 scheduled", description: "3 advisor introductions in progress for 2026-04", date: "2026-04-15", status: "in_progress" },
+      { userId: davisadvisors.id, type: "fa_intro", title: "FA Introductions — 3 scheduled", description: "3 advisor introductions in progress for 2026-03", date: "2026-03-15", status: "in_progress" },
+      { userId: davisadvisors.id, type: "fa_intro", title: "FA Introductions — 3 scheduled", description: "3 advisor introductions in progress for 2026-02", date: "2026-02-15", status: "in_progress" },
+      { userId: davisadvisors.id, type: "fa_intro", title: "FA Introductions — 3 completed", description: "3 advisor introduction calls completed for 2026-01", date: "2026-01-15", status: "completed" },
+      { userId: davisadvisors.id, type: "fa_intro", title: "FA Introductions — 3 completed", description: "3 advisor introduction calls completed for 2025-12", date: "2025-12-15", status: "completed" },
+    ].forEach((a) => storage.createActivity(a));
+    [
+      { userId: davisadvisors.id, month: "2025-12", category: "FA Introductions", owed: 3, completed: 3 },
+      { userId: davisadvisors.id, month: "2025-12", category: "Sponsored Emails", owed: 2, completed: 0 },
+      { userId: davisadvisors.id, month: "2026-01", category: "FA Introductions", owed: 3, completed: 3 },
+      { userId: davisadvisors.id, month: "2026-01", category: "Sponsored Emails", owed: 2, completed: 0 },
+      { userId: davisadvisors.id, month: "2026-02", category: "FA Introductions", owed: 3, completed: 0 },
+      { userId: davisadvisors.id, month: "2026-02", category: "Sponsored Emails", owed: 2, completed: 0 },
+      { userId: davisadvisors.id, month: "2026-03", category: "FA Introductions", owed: 3, completed: 0 },
+      { userId: davisadvisors.id, month: "2026-03", category: "Sponsored Emails", owed: 2, completed: 0 },
+      { userId: davisadvisors.id, month: "2026-04", category: "FA Introductions", owed: 3, completed: 0 },
+      { userId: davisadvisors.id, month: "2026-04", category: "Sponsored Emails", owed: 2, completed: 0 },
+    ].forEach((d) => storage.createDeliverable(d));
+    [
+      { month: "2025-09", fa_intros: 3, email_sends: 1, revenue: 3500 },
+      { month: "2025-10", fa_intros: 3, email_sends: 1, revenue: 3500 },
+      { month: "2025-11", fa_intros: 0, email_sends: 0, revenue: 3500 },
+      { month: "2025-12", fa_intros: 3, email_sends: 0, revenue: 3500 },
+      { month: "2026-01", fa_intros: 3, email_sends: 0, revenue: 3500 },
+      { month: "2026-02", fa_intros: 0, email_sends: 0, revenue: 3500 },
+      { month: "2026-03", fa_intros: 0, email_sends: 0, revenue: 3500 },
+      { month: "2026-04", fa_intros: 0, email_sends: 0, revenue: 3500 },
+    ].forEach((s) => {
+      storage.createMonthlyStat({ userId: davisadvisors.id, month: s.month, metric: "fa_intros", value: s.fa_intros });
+      storage.createMonthlyStat({ userId: davisadvisors.id, month: s.month, metric: "email_sends", value: s.email_sends });
+      storage.createMonthlyStat({ userId: davisadvisors.id, month: s.month, metric: "revenue", value: s.revenue });
+    });
+
+    // ── Evoke Advisors ──
+    const evokeadvisors = storage.createUser({
+      email: "ashahidi@evokeadvisors.com",
+      password: bcrypt.hashSync("evoke2026", 10),
+      name: "Amin Shahidi",
+      company: "Evoke Advisors",
+      role: "issuer",
+      createdAt: new Date().toISOString(),
+    });
+    [
+      { userId: evokeadvisors.id, label: "FA Introductions", value: "34", change: "0", changeDirection: "neutral", icon: "Users", sortOrder: 0 },
+      { userId: evokeadvisors.id, label: "Sponsored Emails", value: "12", change: "0", changeDirection: "neutral", icon: "Mail", sortOrder: 1 },
+      { userId: evokeadvisors.id, label: "Podcast Episodes", value: "11", change: "+1", changeDirection: "up", icon: "Video", sortOrder: 2 },
+      { userId: evokeadvisors.id, label: "Months Active", value: "12", change: "+1", changeDirection: "up", icon: "Calendar", sortOrder: 3 },
+      { userId: evokeadvisors.id, label: "Total Investment", value: "$45,500", change: "", changeDirection: "neutral", icon: "DollarSign", sortOrder: 4 },
+    ].forEach((k) => storage.createKpi(k));
+    [
+      { userId: evokeadvisors.id, type: "fa_intro", title: "FA Introductions — 3 scheduled", description: "3 advisor introductions in progress for 2026-04", date: "2026-04-15", status: "in_progress" },
+      { userId: evokeadvisors.id, type: "fa_intro", title: "FA Introductions — 1 completed", description: "1 advisor introduction calls completed for 2026-02", date: "2026-02-15", status: "completed" },
+      { userId: evokeadvisors.id, type: "email_blast", title: "Sponsored Emails — 1 sent", description: "Lead-Lag Report email blasts for 2026-02", date: "2026-02-20", status: "completed" },
+      { userId: evokeadvisors.id, type: "podcast", title: "Lead-Lag Live Appearance", description: "Podcast recorded — 3/30/26", date: "2026-02-25", status: "completed" },
+      { userId: evokeadvisors.id, type: "fa_intro", title: "FA Introductions — 3 completed", description: "3 advisor introduction calls completed for 2026-01", date: "2026-01-15", status: "completed" },
+      { userId: evokeadvisors.id, type: "email_blast", title: "Sponsored Emails — 1 sent", description: "Lead-Lag Report email blasts for 2026-01", date: "2026-01-20", status: "completed" },
+      { userId: evokeadvisors.id, type: "podcast", title: "Lead-Lag Live Appearance", description: "Podcast recorded — 1/29/26", date: "2026-01-25", status: "completed" },
+      { userId: evokeadvisors.id, type: "fa_intro", title: "FA Introductions — 3 completed", description: "3 advisor introduction calls completed for 2025-12", date: "2025-12-15", status: "completed" },
+      { userId: evokeadvisors.id, type: "email_blast", title: "Sponsored Emails — 1 sent", description: "Lead-Lag Report email blasts for 2025-12", date: "2025-12-20", status: "completed" },
+      { userId: evokeadvisors.id, type: "podcast", title: "Lead-Lag Live Appearance", description: "Podcast recorded — 1/22/26", date: "2025-12-25", status: "completed" },
+      { userId: evokeadvisors.id, type: "fa_intro", title: "FA Introductions — 3 completed", description: "3 advisor introduction calls completed for 2025-11", date: "2025-11-15", status: "completed" },
+      { userId: evokeadvisors.id, type: "email_blast", title: "Sponsored Emails — 1 sent", description: "Lead-Lag Report email blasts for 2025-11", date: "2025-11-20", status: "completed" },
+      { userId: evokeadvisors.id, type: "podcast", title: "Lead-Lag Live Appearance", description: "Podcast recorded — 12/3/25", date: "2025-11-25", status: "completed" },
+      { userId: evokeadvisors.id, type: "fa_intro", title: "FA Introductions — 3 completed", description: "3 advisor introduction calls completed for 2025-10", date: "2025-10-15", status: "completed" },
+      { userId: evokeadvisors.id, type: "email_blast", title: "Sponsored Emails — 1 sent", description: "Lead-Lag Report email blasts for 2025-10", date: "2025-10-20", status: "completed" },
+    ].forEach((a) => storage.createActivity(a));
+    [
+      { userId: evokeadvisors.id, month: "2025-10", category: "FA Introductions", owed: 3, completed: 3 },
+      { userId: evokeadvisors.id, month: "2025-10", category: "Sponsored Emails", owed: 1, completed: 1 },
+      { userId: evokeadvisors.id, month: "2025-10", category: "Podcast Appearances", owed: 1, completed: 1 },
+      { userId: evokeadvisors.id, month: "2025-11", category: "FA Introductions", owed: 3, completed: 3 },
+      { userId: evokeadvisors.id, month: "2025-11", category: "Sponsored Emails", owed: 1, completed: 1 },
+      { userId: evokeadvisors.id, month: "2025-11", category: "Podcast Appearances", owed: 1, completed: 1 },
+      { userId: evokeadvisors.id, month: "2025-12", category: "FA Introductions", owed: 3, completed: 3 },
+      { userId: evokeadvisors.id, month: "2025-12", category: "Sponsored Emails", owed: 1, completed: 1 },
+      { userId: evokeadvisors.id, month: "2025-12", category: "Podcast Appearances", owed: 1, completed: 1 },
+      { userId: evokeadvisors.id, month: "2026-01", category: "FA Introductions", owed: 3, completed: 3 },
+      { userId: evokeadvisors.id, month: "2026-01", category: "Sponsored Emails", owed: 1, completed: 1 },
+      { userId: evokeadvisors.id, month: "2026-01", category: "Podcast Appearances", owed: 1, completed: 1 },
+      { userId: evokeadvisors.id, month: "2026-02", category: "FA Introductions", owed: 3, completed: 1 },
+      { userId: evokeadvisors.id, month: "2026-02", category: "Sponsored Emails", owed: 1, completed: 1 },
+      { userId: evokeadvisors.id, month: "2026-02", category: "Podcast Appearances", owed: 1, completed: 1 },
+      { userId: evokeadvisors.id, month: "2026-04", category: "FA Introductions", owed: 3, completed: 0 },
+      { userId: evokeadvisors.id, month: "2026-04", category: "Sponsored Emails", owed: 1, completed: 0 },
+    ].forEach((d) => storage.createDeliverable(d));
+    [
+      { month: "2025-02", fa_intros: 3, email_sends: 1, revenue: 3500 },
+      { month: "2025-09", fa_intros: 3, email_sends: 1, revenue: 3500 },
+      { month: "2025-10", fa_intros: 3, email_sends: 1, revenue: 3500 },
+      { month: "2025-11", fa_intros: 3, email_sends: 1, revenue: 3500 },
+      { month: "2025-12", fa_intros: 3, email_sends: 1, revenue: 3500 },
+      { month: "2026-01", fa_intros: 3, email_sends: 1, revenue: 3500 },
+      { month: "2026-02", fa_intros: 1, email_sends: 1, revenue: 3500 },
+      { month: "2026-04", fa_intros: 0, email_sends: 0, revenue: 3500 },
+    ].forEach((s) => {
+      storage.createMonthlyStat({ userId: evokeadvisors.id, month: s.month, metric: "fa_intros", value: s.fa_intros });
+      storage.createMonthlyStat({ userId: evokeadvisors.id, month: s.month, metric: "email_sends", value: s.email_sends });
+      storage.createMonthlyStat({ userId: evokeadvisors.id, month: s.month, metric: "revenue", value: s.revenue });
+    });
+
+    // ── Howard Capital Management ──
+    const howardcapitalmanagement = storage.createUser({
+      email: "eric@howardcm.com",
+      password: bcrypt.hashSync("howard2026", 10),
+      name: "Eric Nyquist",
+      company: "Howard Capital Management",
+      role: "issuer",
+      createdAt: new Date().toISOString(),
+    });
+    [
+      { userId: howardcapitalmanagement.id, label: "FA Introductions", value: "38", change: "0", changeDirection: "neutral", icon: "Users", sortOrder: 0 },
+      { userId: howardcapitalmanagement.id, label: "Podcast Episodes", value: "1", change: "+1", changeDirection: "up", icon: "Video", sortOrder: 1 },
+      { userId: howardcapitalmanagement.id, label: "Months Active", value: "10", change: "+1", changeDirection: "up", icon: "Calendar", sortOrder: 2 },
+      { userId: howardcapitalmanagement.id, label: "Total Investment", value: "$38,500", change: "", changeDirection: "neutral", icon: "DollarSign", sortOrder: 3 },
+    ].forEach((k) => storage.createKpi(k));
+    [
+      { userId: howardcapitalmanagement.id, type: "fa_intro", title: "FA Introductions — 4 scheduled", description: "4 advisor introductions in progress for 2026-04", date: "2026-04-15", status: "in_progress" },
+      { userId: howardcapitalmanagement.id, type: "fa_intro", title: "FA Introductions — 4 completed", description: "4 advisor introduction calls completed for 2026-03", date: "2026-03-15", status: "completed" },
+      { userId: howardcapitalmanagement.id, type: "fa_intro", title: "FA Introductions — 4 completed", description: "4 advisor introduction calls completed for 2026-02", date: "2026-02-15", status: "completed" },
+      { userId: howardcapitalmanagement.id, type: "fa_intro", title: "FA Introductions — 4 completed", description: "4 advisor introduction calls completed for 2026-01", date: "2026-01-15", status: "completed" },
+      { userId: howardcapitalmanagement.id, type: "fa_intro", title: "FA Introductions — 4 completed", description: "4 advisor introduction calls completed for 2025-12", date: "2025-12-15", status: "completed" },
+      { userId: howardcapitalmanagement.id, type: "fa_intro", title: "FA Introductions — 4 completed", description: "4 advisor introduction calls completed for 2025-11", date: "2025-11-15", status: "completed" },
+    ].forEach((a) => storage.createActivity(a));
+    [
+      { userId: howardcapitalmanagement.id, month: "2025-11", category: "FA Introductions", owed: 4, completed: 4 },
+      { userId: howardcapitalmanagement.id, month: "2025-12", category: "FA Introductions", owed: 4, completed: 4 },
+      { userId: howardcapitalmanagement.id, month: "2026-01", category: "FA Introductions", owed: 4, completed: 4 },
+      { userId: howardcapitalmanagement.id, month: "2026-02", category: "FA Introductions", owed: 4, completed: 4 },
+      { userId: howardcapitalmanagement.id, month: "2026-03", category: "FA Introductions", owed: 4, completed: 4 },
+      { userId: howardcapitalmanagement.id, month: "2026-04", category: "FA Introductions", owed: 4, completed: 0 },
+    ].forEach((d) => storage.createDeliverable(d));
+    [
+      { month: "2025-09", fa_intros: 4, email_sends: 0, revenue: 3500 },
+      { month: "2025-10", fa_intros: 4, email_sends: 0, revenue: 3500 },
+      { month: "2025-11", fa_intros: 4, email_sends: 0, revenue: 3500 },
+      { month: "2025-12", fa_intros: 4, email_sends: 0, revenue: 3500 },
+      { month: "2026-01", fa_intros: 4, email_sends: 0, revenue: 3500 },
+      { month: "2026-02", fa_intros: 4, email_sends: 0, revenue: 3500 },
+      { month: "2026-03", fa_intros: 4, email_sends: 0, revenue: 3500 },
+      { month: "2026-04", fa_intros: 0, email_sends: 0, revenue: 3500 },
+    ].forEach((s) => {
+      storage.createMonthlyStat({ userId: howardcapitalmanagement.id, month: s.month, metric: "fa_intros", value: s.fa_intros });
+      storage.createMonthlyStat({ userId: howardcapitalmanagement.id, month: s.month, metric: "email_sends", value: s.email_sends });
+      storage.createMonthlyStat({ userId: howardcapitalmanagement.id, month: s.month, metric: "revenue", value: s.revenue });
+    });
+
+    // ── White Wolf Capital ──
+    const whitewolfcapital = storage.createUser({
+      email: "eazar@whitewolfcap.com",
+      password: bcrypt.hashSync("whitewolf2026", 10),
+      name: "Elie Azar",
+      company: "White Wolf Capital",
+      role: "issuer",
+      createdAt: new Date().toISOString(),
+    });
+    [
+      { userId: whitewolfcapital.id, label: "FA Introductions", value: "28", change: "0", changeDirection: "neutral", icon: "Users", sortOrder: 0 },
+      { userId: whitewolfcapital.id, label: "Sponsored Emails", value: "8", change: "0", changeDirection: "neutral", icon: "Mail", sortOrder: 1 },
+      { userId: whitewolfcapital.id, label: "Months Active", value: "11", change: "+1", changeDirection: "up", icon: "Calendar", sortOrder: 2 },
+      { userId: whitewolfcapital.id, label: "Total Investment", value: "$33,000", change: "", changeDirection: "neutral", icon: "DollarSign", sortOrder: 3 },
+    ].forEach((k) => storage.createKpi(k));
+    [
+      { userId: whitewolfcapital.id, type: "fa_intro", title: "FA Introductions — 3 completed", description: "3 advisor introduction calls completed for 2026-01", date: "2026-01-15", status: "completed" },
+      { userId: whitewolfcapital.id, type: "email_blast", title: "Sponsored Emails — 1 sent", description: "Lead-Lag Report email blasts for 2026-01", date: "2026-01-20", status: "completed" },
+      { userId: whitewolfcapital.id, type: "fa_intro", title: "FA Introductions — 3 completed", description: "3 advisor introduction calls completed for 2025-12", date: "2025-12-15", status: "completed" },
+      { userId: whitewolfcapital.id, type: "email_blast", title: "Sponsored Emails — 1 sent", description: "Lead-Lag Report email blasts for 2025-12", date: "2025-12-20", status: "completed" },
+      { userId: whitewolfcapital.id, type: "fa_intro", title: "FA Introductions — 4 completed", description: "4 advisor introduction calls completed for 2025-11", date: "2025-11-15", status: "completed" },
+      { userId: whitewolfcapital.id, type: "email_blast", title: "Sponsored Emails — 1 sent", description: "Lead-Lag Report email blasts for 2025-11", date: "2025-11-20", status: "completed" },
+    ].forEach((a) => storage.createActivity(a));
+    [
+      { userId: whitewolfcapital.id, month: "2025-11", category: "FA Introductions", owed: 4, completed: 4 },
+      { userId: whitewolfcapital.id, month: "2025-11", category: "Sponsored Emails", owed: 1, completed: 1 },
+      { userId: whitewolfcapital.id, month: "2025-12", category: "FA Introductions", owed: 4, completed: 3 },
+      { userId: whitewolfcapital.id, month: "2025-12", category: "Sponsored Emails", owed: 1, completed: 1 },
+      { userId: whitewolfcapital.id, month: "2026-01", category: "FA Introductions", owed: 3, completed: 3 },
+      { userId: whitewolfcapital.id, month: "2026-01", category: "Sponsored Emails", owed: 1, completed: 1 },
+    ].forEach((d) => storage.createDeliverable(d));
+    [
+      { month: "2025-09", fa_intros: 3, email_sends: 1, revenue: 3000 },
+      { month: "2025-10", fa_intros: 3, email_sends: 1, revenue: 3000 },
+      { month: "2025-11", fa_intros: 4, email_sends: 1, revenue: 3000 },
+      { month: "2025-12", fa_intros: 3, email_sends: 1, revenue: 3000 },
+      { month: "2026-01", fa_intros: 3, email_sends: 1, revenue: 3000 },
+      { month: "2026-02", fa_intros: 0, email_sends: 0, revenue: 3000 },
+      { month: "2026-03", fa_intros: 0, email_sends: 0, revenue: 3000 },
+      { month: "2026-04", fa_intros: 0, email_sends: 0, revenue: 3000 },
+    ].forEach((s) => {
+      storage.createMonthlyStat({ userId: whitewolfcapital.id, month: s.month, metric: "fa_intros", value: s.fa_intros });
+      storage.createMonthlyStat({ userId: whitewolfcapital.id, month: s.month, metric: "email_sends", value: s.email_sends });
+      storage.createMonthlyStat({ userId: whitewolfcapital.id, month: s.month, metric: "revenue", value: s.revenue });
+    });
+
+    // ── DWS ──
+    const dws = storage.createUser({
+      email: "aram.babikian@dws.com",
+      password: bcrypt.hashSync("dws2026", 10),
+      name: "Aram Babikian",
+      company: "DWS",
+      role: "issuer",
+      createdAt: new Date().toISOString(),
+    });
+    [
+      { userId: dws.id, label: "FA Introductions", value: "28", change: "+5", changeDirection: "up", icon: "Users", sortOrder: 0 },
+      { userId: dws.id, label: "Sponsored Emails", value: "6", change: "+1", changeDirection: "up", icon: "Mail", sortOrder: 1 },
+      { userId: dws.id, label: "Podcast Episodes", value: "3", change: "+1", changeDirection: "up", icon: "Video", sortOrder: 2 },
+      { userId: dws.id, label: "Months Active", value: "6", change: "+1", changeDirection: "up", icon: "Calendar", sortOrder: 3 },
+      { userId: dws.id, label: "Total Investment", value: "$30,000", change: "", changeDirection: "neutral", icon: "DollarSign", sortOrder: 4 },
+    ].forEach((k) => storage.createKpi(k));
+    [
+      { userId: dws.id, type: "fa_intro", title: "FA Introductions — 5 completed", description: "5 advisor introduction calls completed for 2026-02", date: "2026-02-15", status: "completed" },
+      { userId: dws.id, type: "email_blast", title: "Sponsored Emails — 1 sent", description: "Lead-Lag Report email blasts for 2026-02", date: "2026-02-20", status: "completed" },
+      { userId: dws.id, type: "fa_intro", title: "FA Introductions — 3 completed", description: "3 advisor introduction calls completed for 2026-01", date: "2026-01-15", status: "completed" },
+      { userId: dws.id, type: "email_blast", title: "Sponsored Emails — 1 sent", description: "Lead-Lag Report email blasts for 2026-01", date: "2026-01-20", status: "completed" },
+      { userId: dws.id, type: "fa_intro", title: "FA Introductions — 5 completed", description: "5 advisor introduction calls completed for 2025-12", date: "2025-12-15", status: "completed" },
+      { userId: dws.id, type: "email_blast", title: "Sponsored Emails — 1 sent", description: "Lead-Lag Report email blasts for 2025-12", date: "2025-12-20", status: "completed" },
+      { userId: dws.id, type: "fa_intro", title: "FA Introductions — 5 completed", description: "5 advisor introduction calls completed for 2025-11", date: "2025-11-15", status: "completed" },
+      { userId: dws.id, type: "email_blast", title: "Sponsored Emails — 1 sent", description: "Lead-Lag Report email blasts for 2025-11", date: "2025-11-20", status: "completed" },
+      { userId: dws.id, type: "podcast", title: "Lead-Lag Live Appearance", description: "Podcast recorded — 1/13/26", date: "2025-11-25", status: "completed" },
+      { userId: dws.id, type: "fa_intro", title: "FA Introductions — 5 completed", description: "5 advisor introduction calls completed for 2025-10", date: "2025-10-15", status: "completed" },
+      { userId: dws.id, type: "email_blast", title: "Sponsored Emails — 1 sent", description: "Lead-Lag Report email blasts for 2025-10", date: "2025-10-20", status: "completed" },
+      { userId: dws.id, type: "podcast", title: "Lead-Lag Live Appearance", description: "Podcast recorded — 12/9/25, 12/2/25", date: "2025-10-25", status: "completed" },
+      { userId: dws.id, type: "fa_intro", title: "FA Introductions — 5 completed", description: "5 advisor introduction calls completed for 2025-09", date: "2025-09-15", status: "completed" },
+      { userId: dws.id, type: "email_blast", title: "Sponsored Emails — 1 sent", description: "Lead-Lag Report email blasts for 2025-09", date: "2025-09-20", status: "completed" },
+      { userId: dws.id, type: "podcast", title: "Lead-Lag Live Appearance", description: "Podcast recorded — 11/6/25,11/6/25", date: "2025-09-25", status: "completed" },
+    ].forEach((a) => storage.createActivity(a));
+    [
+      { userId: dws.id, month: "2025-09", category: "FA Introductions", owed: 5, completed: 5 },
+      { userId: dws.id, month: "2025-09", category: "Sponsored Emails", owed: 1, completed: 1 },
+      { userId: dws.id, month: "2025-09", category: "Podcast Appearances", owed: 1, completed: 1 },
+      { userId: dws.id, month: "2025-10", category: "FA Introductions", owed: 5, completed: 5 },
+      { userId: dws.id, month: "2025-10", category: "Sponsored Emails", owed: 1, completed: 1 },
+      { userId: dws.id, month: "2025-10", category: "Podcast Appearances", owed: 1, completed: 1 },
+      { userId: dws.id, month: "2025-11", category: "FA Introductions", owed: 5, completed: 5 },
+      { userId: dws.id, month: "2025-11", category: "Sponsored Emails", owed: 1, completed: 1 },
+      { userId: dws.id, month: "2025-11", category: "Podcast Appearances", owed: 1, completed: 1 },
+      { userId: dws.id, month: "2025-12", category: "FA Introductions", owed: 5, completed: 5 },
+      { userId: dws.id, month: "2025-12", category: "Sponsored Emails", owed: 1, completed: 1 },
+      { userId: dws.id, month: "2026-01", category: "FA Introductions", owed: 5, completed: 3 },
+      { userId: dws.id, month: "2026-01", category: "Sponsored Emails", owed: 1, completed: 1 },
+      { userId: dws.id, month: "2026-02", category: "FA Introductions", owed: 5, completed: 5 },
+      { userId: dws.id, month: "2026-02", category: "Sponsored Emails", owed: 1, completed: 1 },
+    ].forEach((d) => storage.createDeliverable(d));
+    [
+      { month: "2025-09", fa_intros: 5, email_sends: 1, revenue: 5000 },
+      { month: "2025-10", fa_intros: 5, email_sends: 1, revenue: 5000 },
+      { month: "2025-11", fa_intros: 5, email_sends: 1, revenue: 5000 },
+      { month: "2025-12", fa_intros: 5, email_sends: 1, revenue: 5000 },
+      { month: "2026-01", fa_intros: 3, email_sends: 1, revenue: 5000 },
+      { month: "2026-02", fa_intros: 5, email_sends: 1, revenue: 5000 },
+    ].forEach((s) => {
+      storage.createMonthlyStat({ userId: dws.id, month: s.month, metric: "fa_intros", value: s.fa_intros });
+      storage.createMonthlyStat({ userId: dws.id, month: s.month, metric: "email_sends", value: s.email_sends });
+      storage.createMonthlyStat({ userId: dws.id, month: s.month, metric: "revenue", value: s.revenue });
+    });
+
+    // ── Relative Sentiment ──
+    const relativesentiment = storage.createUser({
+      email: "ray@relativesentiment.com",
+      password: bcrypt.hashSync("mood2026", 10),
+      name: "Ray Micaletti",
+      company: "Relative Sentiment",
+      role: "issuer",
+      createdAt: new Date().toISOString(),
+    });
+    [
+      { userId: relativesentiment.id, label: "FA Introductions", value: "20", change: "0", changeDirection: "neutral", icon: "Users", sortOrder: 0 },
+      { userId: relativesentiment.id, label: "Sponsored Emails", value: "12", change: "0", changeDirection: "neutral", icon: "Mail", sortOrder: 1 },
+      { userId: relativesentiment.id, label: "Months Active", value: "7", change: "+1", changeDirection: "up", icon: "Calendar", sortOrder: 2 },
+      { userId: relativesentiment.id, label: "Total Investment", value: "$28,000", change: "", changeDirection: "neutral", icon: "DollarSign", sortOrder: 3 },
+    ].forEach((k) => storage.createKpi(k));
+    [
+      { userId: relativesentiment.id, type: "fa_intro", title: "FA Introductions — 4 scheduled", description: "4 advisor introductions in progress for 2026-04", date: "2026-04-15", status: "in_progress" },
+      { userId: relativesentiment.id, type: "fa_intro", title: "FA Introductions — 4 scheduled", description: "4 advisor introductions in progress for 2026-03", date: "2026-03-15", status: "in_progress" },
+      { userId: relativesentiment.id, type: "email_blast", title: "Sponsored Emails — 2 sent", description: "Lead-Lag Report email blasts for 2026-03", date: "2026-03-20", status: "completed" },
+      { userId: relativesentiment.id, type: "fa_intro", title: "FA Introductions — 4 completed", description: "4 advisor introduction calls completed for 2026-02", date: "2026-02-15", status: "completed" },
+      { userId: relativesentiment.id, type: "email_blast", title: "Sponsored Emails — 2 sent", description: "Lead-Lag Report email blasts for 2026-02", date: "2026-02-20", status: "completed" },
+      { userId: relativesentiment.id, type: "fa_intro", title: "FA Introductions — 4 completed", description: "4 advisor introduction calls completed for 2026-01", date: "2026-01-15", status: "completed" },
+      { userId: relativesentiment.id, type: "email_blast", title: "Sponsored Emails — 2 sent", description: "Lead-Lag Report email blasts for 2026-01", date: "2026-01-20", status: "completed" },
+      { userId: relativesentiment.id, type: "fa_intro", title: "FA Introductions — 4 completed", description: "4 advisor introduction calls completed for 2025-12", date: "2025-12-15", status: "completed" },
+      { userId: relativesentiment.id, type: "email_blast", title: "Sponsored Emails — 2 sent", description: "Lead-Lag Report email blasts for 2025-12", date: "2025-12-20", status: "completed" },
+      { userId: relativesentiment.id, type: "fa_intro", title: "FA Introductions — 4 completed", description: "4 advisor introduction calls completed for 2025-11", date: "2025-11-15", status: "completed" },
+      { userId: relativesentiment.id, type: "email_blast", title: "Sponsored Emails — 2 sent", description: "Lead-Lag Report email blasts for 2025-11", date: "2025-11-20", status: "completed" },
+    ].forEach((a) => storage.createActivity(a));
+    [
+      { userId: relativesentiment.id, month: "2025-11", category: "FA Introductions", owed: 4, completed: 4 },
+      { userId: relativesentiment.id, month: "2025-11", category: "Sponsored Emails", owed: 2, completed: 2 },
+      { userId: relativesentiment.id, month: "2025-12", category: "FA Introductions", owed: 4, completed: 4 },
+      { userId: relativesentiment.id, month: "2025-12", category: "Sponsored Emails", owed: 2, completed: 2 },
+      { userId: relativesentiment.id, month: "2026-01", category: "FA Introductions", owed: 4, completed: 4 },
+      { userId: relativesentiment.id, month: "2026-01", category: "Sponsored Emails", owed: 2, completed: 2 },
+      { userId: relativesentiment.id, month: "2026-02", category: "FA Introductions", owed: 4, completed: 4 },
+      { userId: relativesentiment.id, month: "2026-02", category: "Sponsored Emails", owed: 2, completed: 2 },
+      { userId: relativesentiment.id, month: "2026-03", category: "FA Introductions", owed: 4, completed: 0 },
+      { userId: relativesentiment.id, month: "2026-03", category: "Sponsored Emails", owed: 2, completed: 2 },
+      { userId: relativesentiment.id, month: "2026-04", category: "FA Introductions", owed: 4, completed: 0 },
+      { userId: relativesentiment.id, month: "2026-04", category: "Sponsored Emails", owed: 2, completed: 0 },
+    ].forEach((d) => storage.createDeliverable(d));
+    [
+      { month: "2025-10", fa_intros: 4, email_sends: 2, revenue: 4000 },
+      { month: "2025-11", fa_intros: 4, email_sends: 2, revenue: 4000 },
+      { month: "2025-12", fa_intros: 4, email_sends: 2, revenue: 4000 },
+      { month: "2026-01", fa_intros: 4, email_sends: 2, revenue: 4000 },
+      { month: "2026-02", fa_intros: 4, email_sends: 2, revenue: 4000 },
+      { month: "2026-03", fa_intros: 0, email_sends: 2, revenue: 4000 },
+      { month: "2026-04", fa_intros: 0, email_sends: 0, revenue: 4000 },
+    ].forEach((s) => {
+      storage.createMonthlyStat({ userId: relativesentiment.id, month: s.month, metric: "fa_intros", value: s.fa_intros });
+      storage.createMonthlyStat({ userId: relativesentiment.id, month: s.month, metric: "email_sends", value: s.email_sends });
+      storage.createMonthlyStat({ userId: relativesentiment.id, month: s.month, metric: "revenue", value: s.revenue });
+    });
+
+    // ── Teucrium ──
+    const teucrium = storage.createUser({
+      email: "sal@teucrium.com",
+      password: bcrypt.hashSync("teucrium2026", 10),
+      name: "Sal Gilbertie",
+      company: "Teucrium",
+      role: "issuer",
+      createdAt: new Date().toISOString(),
+    });
+    [
+      { userId: teucrium.id, label: "FA Introductions", value: "18", change: "+3", changeDirection: "up", icon: "Users", sortOrder: 0 },
+      { userId: teucrium.id, label: "Sponsored Emails", value: "10", change: "0", changeDirection: "neutral", icon: "Mail", sortOrder: 1 },
+      { userId: teucrium.id, label: "Podcast Episodes", value: "5", change: "+1", changeDirection: "up", icon: "Video", sortOrder: 2 },
+      { userId: teucrium.id, label: "Months Active", value: "13", change: "+1", changeDirection: "up", icon: "Calendar", sortOrder: 3 },
+      { userId: teucrium.id, label: "Total Investment", value: "$93,000", change: "", changeDirection: "neutral", icon: "DollarSign", sortOrder: 4 },
+    ].forEach((k) => storage.createKpi(k));
+    [
+      { userId: teucrium.id, type: "fa_intro", title: "FA Introductions — 3 completed", description: "3 advisor introduction calls completed for 2026-04", date: "2026-04-15", status: "completed" },
+      { userId: teucrium.id, type: "fa_intro", title: "FA Introductions — 3 completed", description: "3 advisor introduction calls completed for 2026-03", date: "2026-03-15", status: "completed" },
+      { userId: teucrium.id, type: "fa_intro", title: "FA Introductions — 2 completed", description: "2 advisor introduction calls completed for 2026-02", date: "2026-02-15", status: "completed" },
+    ].forEach((a) => storage.createActivity(a));
+    [
+      { userId: teucrium.id, month: "2026-02", category: "FA Introductions", owed: 5, completed: 2 },
+      { userId: teucrium.id, month: "2026-03", category: "FA Introductions", owed: 5, completed: 3 },
+      { userId: teucrium.id, month: "2026-04", category: "FA Introductions", owed: 5, completed: 3 },
+    ].forEach((d) => storage.createDeliverable(d));
+    [
+      { month: "2025-09", fa_intros: 0, email_sends: 0, revenue: 9000 },
+      { month: "2025-10", fa_intros: 0, email_sends: 0, revenue: 9000 },
+      { month: "2025-11", fa_intros: 0, email_sends: 0, revenue: 9000 },
+      { month: "2025-12", fa_intros: 0, email_sends: 0, revenue: 9000 },
+      { month: "2026-01", fa_intros: 0, email_sends: 0, revenue: 9000 },
+      { month: "2026-02", fa_intros: 2, email_sends: 0, revenue: 9000 },
+      { month: "2026-03", fa_intros: 3, email_sends: 0, revenue: 9000 },
+      { month: "2026-04", fa_intros: 3, email_sends: 0, revenue: 9000 },
+    ].forEach((s) => {
+      storage.createMonthlyStat({ userId: teucrium.id, month: s.month, metric: "fa_intros", value: s.fa_intros });
+      storage.createMonthlyStat({ userId: teucrium.id, month: s.month, metric: "email_sends", value: s.email_sends });
+      storage.createMonthlyStat({ userId: teucrium.id, month: s.month, metric: "revenue", value: s.revenue });
+    });
+
+    // ── Columbia Threadneedle ──
+    const columbiathreadneedle = storage.createUser({
+      email: "contact@columbiathreadneedle.com",
+      password: bcrypt.hashSync("columbia2026", 10),
+      name: "Columbia Threadneedle Team",
+      company: "Columbia Threadneedle",
+      role: "issuer",
+      createdAt: new Date().toISOString(),
+    });
+    [
+      { userId: columbiathreadneedle.id, label: "FA Introductions", value: "34", change: "0", changeDirection: "neutral", icon: "Users", sortOrder: 0 },
+      { userId: columbiathreadneedle.id, label: "Sponsored Emails", value: "26", change: "0", changeDirection: "neutral", icon: "Mail", sortOrder: 1 },
+      { userId: columbiathreadneedle.id, label: "Podcast Episodes", value: "4", change: "+1", changeDirection: "up", icon: "Video", sortOrder: 2 },
+      { userId: columbiathreadneedle.id, label: "Months Active", value: "18", change: "+1", changeDirection: "up", icon: "Calendar", sortOrder: 3 },
+      { userId: columbiathreadneedle.id, label: "Total Investment", value: "$66,500", change: "", changeDirection: "neutral", icon: "DollarSign", sortOrder: 4 },
+    ].forEach((k) => storage.createKpi(k));
+    [
+      { userId: columbiathreadneedle.id, type: "fa_intro", title: "FA Introductions — 3 scheduled", description: "3 advisor introductions in progress for 2026-09", date: "2026-09-15", status: "in_progress" },
+      { userId: columbiathreadneedle.id, type: "fa_intro", title: "FA Introductions — 3 scheduled", description: "3 advisor introductions in progress for 2026-08", date: "2026-08-15", status: "in_progress" },
+      { userId: columbiathreadneedle.id, type: "fa_intro", title: "FA Introductions — 3 scheduled", description: "3 advisor introductions in progress for 2026-07", date: "2026-07-15", status: "in_progress" },
+      { userId: columbiathreadneedle.id, type: "fa_intro", title: "FA Introductions — 3 scheduled", description: "3 advisor introductions in progress for 2026-06", date: "2026-06-15", status: "in_progress" },
+      { userId: columbiathreadneedle.id, type: "fa_intro", title: "FA Introductions — 3 scheduled", description: "3 advisor introductions in progress for 2026-05", date: "2026-05-15", status: "in_progress" },
+      { userId: columbiathreadneedle.id, type: "fa_intro", title: "FA Introductions — 3 scheduled", description: "3 advisor introductions in progress for 2026-04", date: "2026-04-15", status: "in_progress" },
+    ].forEach((a) => storage.createActivity(a));
+    [
+      { userId: columbiathreadneedle.id, month: "2026-04", category: "FA Introductions", owed: 3, completed: 0 },
+      { userId: columbiathreadneedle.id, month: "2026-04", category: "Sponsored Emails", owed: 2, completed: 0 },
+      { userId: columbiathreadneedle.id, month: "2026-05", category: "FA Introductions", owed: 3, completed: 0 },
+      { userId: columbiathreadneedle.id, month: "2026-05", category: "Sponsored Emails", owed: 2, completed: 0 },
+      { userId: columbiathreadneedle.id, month: "2026-06", category: "FA Introductions", owed: 3, completed: 0 },
+      { userId: columbiathreadneedle.id, month: "2026-06", category: "Sponsored Emails", owed: 2, completed: 0 },
+      { userId: columbiathreadneedle.id, month: "2026-07", category: "FA Introductions", owed: 3, completed: 0 },
+      { userId: columbiathreadneedle.id, month: "2026-07", category: "Sponsored Emails", owed: 2, completed: 0 },
+      { userId: columbiathreadneedle.id, month: "2026-08", category: "FA Introductions", owed: 3, completed: 0 },
+      { userId: columbiathreadneedle.id, month: "2026-08", category: "Sponsored Emails", owed: 2, completed: 0 },
+      { userId: columbiathreadneedle.id, month: "2026-09", category: "FA Introductions", owed: 3, completed: 0 },
+      { userId: columbiathreadneedle.id, month: "2026-09", category: "Sponsored Emails", owed: 2, completed: 0 },
+    ].forEach((d) => storage.createDeliverable(d));
+    [
+      { month: "2026-02", fa_intros: 3, email_sends: 2, revenue: 3500 },
+      { month: "2026-03", fa_intros: 3, email_sends: 2, revenue: 3500 },
+      { month: "2026-04", fa_intros: 0, email_sends: 0, revenue: 3500 },
+      { month: "2026-05", fa_intros: 0, email_sends: 0, revenue: 3500 },
+      { month: "2026-06", fa_intros: 0, email_sends: 0, revenue: 3500 },
+      { month: "2026-07", fa_intros: 0, email_sends: 0, revenue: 3500 },
+      { month: "2026-08", fa_intros: 0, email_sends: 0, revenue: 3500 },
+      { month: "2026-09", fa_intros: 0, email_sends: 0, revenue: 3500 },
+    ].forEach((s) => {
+      storage.createMonthlyStat({ userId: columbiathreadneedle.id, month: s.month, metric: "fa_intros", value: s.fa_intros });
+      storage.createMonthlyStat({ userId: columbiathreadneedle.id, month: s.month, metric: "email_sends", value: s.email_sends });
+      storage.createMonthlyStat({ userId: columbiathreadneedle.id, month: s.month, metric: "revenue", value: s.revenue });
+    });
+
+    // ── Point Bridge ──
+    const pointbridge = storage.createUser({
+      email: "contact@pointbridgecapital.com",
+      password: bcrypt.hashSync("pointbridge2026", 10),
+      name: "Point Bridge Team",
+      company: "Point Bridge",
+      role: "issuer",
+      createdAt: new Date().toISOString(),
+    });
+    [
+      { userId: pointbridge.id, label: "FA Introductions", value: "24", change: "+3", changeDirection: "up", icon: "Users", sortOrder: 0 },
+      { userId: pointbridge.id, label: "Sponsored Emails", value: "14", change: "0", changeDirection: "neutral", icon: "Mail", sortOrder: 1 },
+      { userId: pointbridge.id, label: "Podcast Episodes", value: "5", change: "+1", changeDirection: "up", icon: "Video", sortOrder: 2 },
+      { userId: pointbridge.id, label: "Months Active", value: "10", change: "+1", changeDirection: "up", icon: "Calendar", sortOrder: 3 },
+      { userId: pointbridge.id, label: "Total Investment", value: "$30,000", change: "", changeDirection: "neutral", icon: "DollarSign", sortOrder: 4 },
+    ].forEach((k) => storage.createKpi(k));
+    [
+      { userId: pointbridge.id, type: "fa_intro", title: "FA Introductions — 3 completed", description: "3 advisor introduction calls completed for 2026-01", date: "2026-01-15", status: "completed" },
+      { userId: pointbridge.id, type: "fa_intro", title: "FA Introductions — 2 completed", description: "2 advisor introduction calls completed for 2025-12", date: "2025-12-15", status: "completed" },
+      { userId: pointbridge.id, type: "fa_intro", title: "FA Introductions — 2 completed", description: "2 advisor introduction calls completed for 2025-11", date: "2025-11-15", status: "completed" },
+      { userId: pointbridge.id, type: "fa_intro", title: "FA Introductions — 3 completed", description: "3 advisor introduction calls completed for 2025-10", date: "2025-10-15", status: "completed" },
+      { userId: pointbridge.id, type: "fa_intro", title: "FA Introductions — 3 completed", description: "3 advisor introduction calls completed for 2025-09", date: "2025-09-15", status: "completed" },
+      { userId: pointbridge.id, type: "email_blast", title: "Sponsored Emails — 2 sent", description: "Lead-Lag Report email blasts for 2025-09", date: "2025-09-20", status: "completed" },
+      { userId: pointbridge.id, type: "fa_intro", title: "FA Introductions — 3 completed", description: "3 advisor introduction calls completed for 2025-02", date: "2025-02-15", status: "completed" },
+      { userId: pointbridge.id, type: "email_blast", title: "Sponsored Emails — 2 sent", description: "Lead-Lag Report email blasts for 2025-02", date: "2025-02-20", status: "completed" },
+    ].forEach((a) => storage.createActivity(a));
+    [
+      { userId: pointbridge.id, month: "2025-02", category: "FA Introductions", owed: 3, completed: 3 },
+      { userId: pointbridge.id, month: "2025-02", category: "Sponsored Emails", owed: 2, completed: 2 },
+      { userId: pointbridge.id, month: "2025-09", category: "FA Introductions", owed: 3, completed: 3 },
+      { userId: pointbridge.id, month: "2025-09", category: "Sponsored Emails", owed: 2, completed: 2 },
+      { userId: pointbridge.id, month: "2025-10", category: "FA Introductions", owed: 3, completed: 3 },
+      { userId: pointbridge.id, month: "2025-10", category: "Sponsored Emails", owed: 2, completed: 0 },
+      { userId: pointbridge.id, month: "2025-11", category: "FA Introductions", owed: 3, completed: 2 },
+      { userId: pointbridge.id, month: "2025-11", category: "Sponsored Emails", owed: 2, completed: 0 },
+      { userId: pointbridge.id, month: "2025-12", category: "FA Introductions", owed: 3, completed: 2 },
+      { userId: pointbridge.id, month: "2025-12", category: "Sponsored Emails", owed: 2, completed: 0 },
+      { userId: pointbridge.id, month: "2026-01", category: "FA Introductions", owed: 3, completed: 3 },
+      { userId: pointbridge.id, month: "2026-01", category: "Sponsored Emails", owed: 2, completed: 0 },
+    ].forEach((d) => storage.createDeliverable(d));
+    [
+      { month: "2024-12", fa_intros: 2, email_sends: 2, revenue: 3000 },
+      { month: "2025-01", fa_intros: 2, email_sends: 2, revenue: 3000 },
+      { month: "2025-02", fa_intros: 3, email_sends: 2, revenue: 3000 },
+      { month: "2025-09", fa_intros: 3, email_sends: 2, revenue: 3000 },
+      { month: "2025-10", fa_intros: 3, email_sends: 0, revenue: 3000 },
+      { month: "2025-11", fa_intros: 2, email_sends: 0, revenue: 3000 },
+      { month: "2025-12", fa_intros: 2, email_sends: 0, revenue: 3000 },
+      { month: "2026-01", fa_intros: 3, email_sends: 0, revenue: 3000 },
+    ].forEach((s) => {
+      storage.createMonthlyStat({ userId: pointbridge.id, month: s.month, metric: "fa_intros", value: s.fa_intros });
+      storage.createMonthlyStat({ userId: pointbridge.id, month: s.month, metric: "email_sends", value: s.email_sends });
+      storage.createMonthlyStat({ userId: pointbridge.id, month: s.month, metric: "revenue", value: s.revenue });
+    });
+
+    // ── Cambria ──
+    const cambria = storage.createUser({
+      email: "contact@cambriainvestments.com",
+      password: bcrypt.hashSync("cambria2026", 10),
+      name: "Cambria Team",
+      company: "Cambria",
+      role: "issuer",
+      createdAt: new Date().toISOString(),
+    });
+    [
+      { userId: cambria.id, label: "FA Introductions", value: "28", change: "+5", changeDirection: "up", icon: "Users", sortOrder: 0 },
+      { userId: cambria.id, label: "Sponsored Emails", value: "12", change: "+4", changeDirection: "up", icon: "Mail", sortOrder: 1 },
+      { userId: cambria.id, label: "Podcast Episodes", value: "3", change: "+1", changeDirection: "up", icon: "Video", sortOrder: 2 },
+      { userId: cambria.id, label: "Months Active", value: "6", change: "+1", changeDirection: "up", icon: "Calendar", sortOrder: 3 },
+      { userId: cambria.id, label: "Total Investment", value: "$33,000", change: "", changeDirection: "neutral", icon: "DollarSign", sortOrder: 4 },
+    ].forEach((k) => storage.createKpi(k));
+    [
+      { userId: cambria.id, type: "fa_intro", title: "FA Introductions — 5 completed", description: "5 advisor introduction calls completed for 2025-10", date: "2025-10-15", status: "completed" },
+      { userId: cambria.id, type: "email_blast", title: "Sponsored Emails — 4 sent", description: "Lead-Lag Report email blasts for 2025-10", date: "2025-10-20", status: "completed" },
+      { userId: cambria.id, type: "fa_intro", title: "FA Introductions — 5 completed", description: "5 advisor introduction calls completed for 2025-09", date: "2025-09-15", status: "completed" },
+      { userId: cambria.id, type: "fa_intro", title: "FA Introductions — 10 completed", description: "10 advisor introduction calls completed for 2025-02", date: "2025-02-15", status: "completed" },
+      { userId: cambria.id, type: "fa_intro", title: "FA Introductions — 2 completed", description: "2 advisor introduction calls completed for 2025-01", date: "2025-01-15", status: "completed" },
+      { userId: cambria.id, type: "email_blast", title: "Sponsored Emails — 2 sent", description: "Lead-Lag Report email blasts for 2025-01", date: "2025-01-20", status: "completed" },
+      { userId: cambria.id, type: "podcast", title: "Lead-Lag Live Appearance", description: "Podcast recorded — 2/25/25", date: "2025-01-25", status: "completed" },
+      { userId: cambria.id, type: "fa_intro", title: "FA Introductions — 2 completed", description: "2 advisor introduction calls completed for 2024-12", date: "2024-12-15", status: "completed" },
+      { userId: cambria.id, type: "email_blast", title: "Sponsored Emails — 2 sent", description: "Lead-Lag Report email blasts for 2024-12", date: "2024-12-20", status: "completed" },
+      { userId: cambria.id, type: "podcast", title: "Lead-Lag Live Appearance", description: "Podcast recorded — 12/10/24", date: "2024-12-25", status: "completed" },
+      { userId: cambria.id, type: "fa_intro", title: "FA Introductions — 2 completed", description: "2 advisor introduction calls completed for 2024-11", date: "2024-11-15", status: "completed" },
+      { userId: cambria.id, type: "email_blast", title: "Sponsored Emails — 2 sent", description: "Lead-Lag Report email blasts for 2024-11", date: "2024-11-20", status: "completed" },
+      { userId: cambria.id, type: "podcast", title: "Lead-Lag Live Appearance", description: "Podcast recorded — 11/21/24", date: "2024-11-25", status: "completed" },
+    ].forEach((a) => storage.createActivity(a));
+    [
+      { userId: cambria.id, month: "2024-11", category: "FA Introductions", owed: 2, completed: 2 },
+      { userId: cambria.id, month: "2024-11", category: "Sponsored Emails", owed: 2, completed: 2 },
+      { userId: cambria.id, month: "2024-11", category: "Podcast Appearances", owed: 1, completed: 1 },
+      { userId: cambria.id, month: "2024-12", category: "FA Introductions", owed: 2, completed: 2 },
+      { userId: cambria.id, month: "2024-12", category: "Sponsored Emails", owed: 2, completed: 2 },
+      { userId: cambria.id, month: "2024-12", category: "Podcast Appearances", owed: 1, completed: 1 },
+      { userId: cambria.id, month: "2025-01", category: "FA Introductions", owed: 2, completed: 2 },
+      { userId: cambria.id, month: "2025-01", category: "Sponsored Emails", owed: 2, completed: 2 },
+      { userId: cambria.id, month: "2025-01", category: "Podcast Appearances", owed: 1, completed: 1 },
+      { userId: cambria.id, month: "2025-02", category: "FA Introductions", owed: 10, completed: 10 },
+      { userId: cambria.id, month: "2025-09", category: "FA Introductions", owed: 5, completed: 5 },
+      { userId: cambria.id, month: "2025-10", category: "FA Introductions", owed: 5, completed: 5 },
+      { userId: cambria.id, month: "2025-10", category: "Sponsored Emails", owed: 4, completed: 4 },
+    ].forEach((d) => storage.createDeliverable(d));
+    [
+      { month: "2024-11", fa_intros: 2, email_sends: 2, revenue: 3000 },
+      { month: "2024-12", fa_intros: 2, email_sends: 2, revenue: 3000 },
+      { month: "2025-01", fa_intros: 2, email_sends: 2, revenue: 3000 },
+      { month: "2025-02", fa_intros: 10, email_sends: 0, revenue: 7000 },
+      { month: "2025-09", fa_intros: 5, email_sends: 0, revenue: 7000 },
+      { month: "2025-10", fa_intros: 5, email_sends: 4, revenue: 7000 },
+    ].forEach((s) => {
+      storage.createMonthlyStat({ userId: cambria.id, month: s.month, metric: "fa_intros", value: s.fa_intros });
+      storage.createMonthlyStat({ userId: cambria.id, month: s.month, metric: "email_sends", value: s.email_sends });
+      storage.createMonthlyStat({ userId: cambria.id, month: s.month, metric: "revenue", value: s.revenue });
+    });
+
+    // ── Acquiers Fund ──
+    const acquiersfund = storage.createUser({
+      email: "contact@acquiersfund.com",
+      password: bcrypt.hashSync("acquiers2026", 10),
+      name: "Acquiers Fund Team",
+      company: "Acquiers Fund",
+      role: "issuer",
+      createdAt: new Date().toISOString(),
+    });
+    [
+      { userId: acquiersfund.id, label: "FA Introductions", value: "5", change: "+1", changeDirection: "up", icon: "Users", sortOrder: 0 },
+    ].forEach((k) => storage.createKpi(k));
+    [
+      { userId: acquiersfund.id, type: "fa_intro", title: "FA Introductions — 1 completed", description: "1 advisor introduction calls completed for 2026-04", date: "2026-04-15", status: "completed" },
+      { userId: acquiersfund.id, type: "fa_intro", title: "FA Introductions — 1 completed", description: "1 advisor introduction calls completed for 2026-03", date: "2026-03-15", status: "completed" },
+      { userId: acquiersfund.id, type: "fa_intro", title: "FA Introductions — 1 completed", description: "1 advisor introduction calls completed for 2026-02", date: "2026-02-15", status: "completed" },
+      { userId: acquiersfund.id, type: "fa_intro", title: "FA Introductions — 1 completed", description: "1 advisor introduction calls completed for 2026-01", date: "2026-01-15", status: "completed" },
+      { userId: acquiersfund.id, type: "fa_intro", title: "FA Introductions — 1 completed", description: "1 advisor introduction calls completed for 2025-11", date: "2025-11-15", status: "completed" },
+    ].forEach((a) => storage.createActivity(a));
+    [
+      { userId: acquiersfund.id, month: "2025-11", category: "FA Introductions", owed: 1, completed: 1 },
+      { userId: acquiersfund.id, month: "2026-01", category: "FA Introductions", owed: 1, completed: 1 },
+      { userId: acquiersfund.id, month: "2026-02", category: "FA Introductions", owed: 1, completed: 1 },
+      { userId: acquiersfund.id, month: "2026-03", category: "FA Introductions", owed: 1, completed: 1 },
+      { userId: acquiersfund.id, month: "2026-04", category: "FA Introductions", owed: 1, completed: 1 },
+    ].forEach((d) => storage.createDeliverable(d));
+    [
+      { month: "2025-11", fa_intros: 1, email_sends: 0, revenue: 0 },
+      { month: "2025-12", fa_intros: 0, email_sends: 0, revenue: 0 },
+      { month: "2026-01", fa_intros: 1, email_sends: 0, revenue: 0 },
+      { month: "2026-02", fa_intros: 1, email_sends: 0, revenue: 0 },
+      { month: "2026-03", fa_intros: 1, email_sends: 0, revenue: 0 },
+      { month: "2026-04", fa_intros: 1, email_sends: 0, revenue: 0 },
+    ].forEach((s) => {
+      storage.createMonthlyStat({ userId: acquiersfund.id, month: s.month, metric: "fa_intros", value: s.fa_intros });
+      storage.createMonthlyStat({ userId: acquiersfund.id, month: s.month, metric: "email_sends", value: s.email_sends });
+      storage.createMonthlyStat({ userId: acquiersfund.id, month: s.month, metric: "revenue", value: s.revenue });
+    });
+
+    // ── Toews ──
+    const toews = storage.createUser({
+      email: "contact@toews.com",
+      password: bcrypt.hashSync("toews2026", 10),
+      name: "Toews Team",
+      company: "Toews",
+      role: "issuer",
+      createdAt: new Date().toISOString(),
+    });
+    [
+      { userId: toews.id, label: "Months Active", value: "4", change: "+1", changeDirection: "up", icon: "Calendar", sortOrder: 0 },
+      { userId: toews.id, label: "Total Investment", value: "$8,000", change: "", changeDirection: "neutral", icon: "DollarSign", sortOrder: 1 },
+    ].forEach((k) => storage.createKpi(k));
+    [
+      { month: "2026-01", fa_intros: 0, email_sends: 0, revenue: 2000 },
+      { month: "2026-02", fa_intros: 0, email_sends: 0, revenue: 2000 },
+      { month: "2026-03", fa_intros: 0, email_sends: 0, revenue: 2000 },
+      { month: "2026-04", fa_intros: 0, email_sends: 0, revenue: 2000 },
+    ].forEach((s) => {
+      storage.createMonthlyStat({ userId: toews.id, month: s.month, metric: "fa_intros", value: s.fa_intros });
+      storage.createMonthlyStat({ userId: toews.id, month: s.month, metric: "email_sends", value: s.email_sends });
+      storage.createMonthlyStat({ userId: toews.id, month: s.month, metric: "revenue", value: s.revenue });
+    });
+
   }
 
   // === PASSWORD RESET ROUTES ===
