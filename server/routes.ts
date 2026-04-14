@@ -267,6 +267,15 @@ export async function registerRoutes(server: Server, app: Express) {
     });
 
 
+
+  }
+
+  // ══════════════════════════════════════════════════
+  // SEED DASHBOARD DATA FOR ALL CLIENTS
+  // Only runs if new clients haven't been seeded yet
+  // ══════════════════════════════════════════════════
+  const existingAGF = storage.getUserByEmail("kevin.collins@agf.com");
+  if (!existingAGF) {
     // ══════════════════════════════════════════════════
     // SEED DASHBOARD DATA FOR ALL CLIENTS
     // ══════════════════════════════════════════════════
@@ -1357,6 +1366,7 @@ export async function registerRoutes(server: Server, app: Express) {
     });
 
   }
+
 
   // === PASSWORD RESET ROUTES ===
 
