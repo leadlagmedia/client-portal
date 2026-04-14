@@ -18,6 +18,27 @@ import kranesharesData from "@/data/kraneshares";
 import uscfData from "@/data/uscf";
 import infraCapData from "@/data/infrastructure-capital";
 import tappalphaData from "@/data/tappalpha";
+import agfData from "@/data/agf";
+import tuttleData from "@/data/tuttle-capital";
+import davisData from "@/data/davis-advisors";
+import evokeData from "@/data/evoke-advisors";
+import howardData from "@/data/howard-capital";
+import whiteWolfData from "@/data/white-wolf";
+import dwsData from "@/data/dws-xtrackers";
+import relSentData from "@/data/relative-sentiment";
+import teucriumData from "@/data/teucrium";
+import columbiaData from "@/data/columbia-threadneedle";
+import pointBridgeData from "@/data/point-bridge";
+import cambriaData from "@/data/cambria";
+import acquiersData from "@/data/acquiers";
+import toewsData from "@/data/toews";
+import merkData from "@/data/merk-investments";
+import simplifyData from "@/data/simplify";
+import rayliantData from "@/data/rayliant";
+import tradrData from "@/data/tradretfs";
+import quantifyData from "@/data/quantify-funds";
+import kurvData from "@/data/kurv-invest";
+import acruenceData from "@/data/acruence";
 
 // ── Distillate data (extracted from the live Perplexity dashboard) ──
 
@@ -133,6 +154,27 @@ function getClientData(company: string, email: string) {
   if (c.includes("uscf")) return uscfData;
   if (c.includes("infrastructure") || c.includes("infracap")) return infraCapData;
   if (c.includes("tapp")) return tappalphaData;
+  if (c.includes("agf")) return agfData;
+  if (c.includes("tuttle")) return tuttleData;
+  if (c.includes("davis")) return davisData;
+  if (c.includes("evoke")) return evokeData;
+  if (c.includes("howard")) return howardData;
+  if (c.includes("white wolf")) return whiteWolfData;
+  if (c.includes("dws") || c.includes("xtrackers")) return dwsData;
+  if (c.includes("relative sentiment") || c.includes("mood")) return relSentData;
+  if (c.includes("teucrium")) return teucriumData;
+  if (c.includes("columbia") || c.includes("threadneedle")) return columbiaData;
+  if (c.includes("point bridge")) return pointBridgeData;
+  if (c.includes("cambria")) return cambriaData;
+  if (c.includes("acquiers")) return acquiersData;
+  if (c.includes("toews")) return toewsData;
+  if (c.includes("merk")) return merkData;
+  if (c.includes("simplify")) return simplifyData;
+  if (c.includes("rayliant")) return rayliantData;
+  if (c.includes("tradr")) return tradrData;
+  if (c.includes("quantify")) return quantifyData;
+  if (c.includes("kurv")) return kurvData;
+  if (c.includes("acruence")) return acruenceData;
   return null;
 }
 
