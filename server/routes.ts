@@ -1365,6 +1365,129 @@ export async function registerRoutes(server: Server, app: Express) {
       storage.createMonthlyStat({ userId: toews.id, month: s.month, metric: "revenue", value: s.revenue });
     });
 
+    // ── Merk Investments ──
+    const merk = storage.createUser({
+      email: "contact@merkinvestments.com",
+      password: bcrypt.hashSync("merk2026", 10),
+      name: "Merk Investments Team",
+      company: "Merk Investments",
+      role: "issuer",
+      createdAt: new Date().toISOString(),
+    });
+    [
+      { userId: merk.id, label: "Months Active", value: "6", change: "+1", changeDirection: "up", icon: "Calendar", sortOrder: 0 },
+      { userId: merk.id, label: "Total Investment", value: "$18,000", change: "", changeDirection: "neutral", icon: "DollarSign", sortOrder: 1 },
+    ].forEach((k) => storage.createKpi(k));
+
+    // ── Simplify ──
+    const simplify = storage.createUser({
+      email: "contact@simplify.us",
+      password: bcrypt.hashSync("simplify2026", 10),
+      name: "Simplify Team",
+      company: "Simplify",
+      role: "issuer",
+      createdAt: new Date().toISOString(),
+    });
+    [
+      { userId: simplify.id, label: "Months Active", value: "6", change: "+1", changeDirection: "up", icon: "Calendar", sortOrder: 0 },
+      { userId: simplify.id, label: "Total Investment", value: "$18,000", change: "", changeDirection: "neutral", icon: "DollarSign", sortOrder: 1 },
+    ].forEach((k) => storage.createKpi(k));
+
+    // ── Rayliant ──
+    const rayliant = storage.createUser({
+      email: "contact@rayliant.com",
+      password: bcrypt.hashSync("rayliant2026", 10),
+      name: "Rayliant Team",
+      company: "Rayliant",
+      role: "issuer",
+      createdAt: new Date().toISOString(),
+    });
+    [
+      { userId: rayliant.id, label: "Months Active", value: "5", change: "+1", changeDirection: "up", icon: "Calendar", sortOrder: 0 },
+      { userId: rayliant.id, label: "Total Investment", value: "$15,000", change: "", changeDirection: "neutral", icon: "DollarSign", sortOrder: 1 },
+    ].forEach((k) => storage.createKpi(k));
+
+    // ── TradrETFs ──
+    const tradretfs = storage.createUser({
+      email: "contact@tradretfs.com",
+      password: bcrypt.hashSync("tradr2026", 10),
+      name: "TradrETFs Team",
+      company: "TradrETFs",
+      role: "issuer",
+      createdAt: new Date().toISOString(),
+    });
+    [
+      { userId: tradretfs.id, label: "Months Active", value: "4", change: "+1", changeDirection: "up", icon: "Calendar", sortOrder: 0 },
+      { userId: tradretfs.id, label: "Total Investment", value: "$12,000", change: "", changeDirection: "neutral", icon: "DollarSign", sortOrder: 1 },
+    ].forEach((k) => storage.createKpi(k));
+
+    // ── Quantify Funds ──
+    const quantify = storage.createUser({
+      email: "contact@quantifyfunds.com",
+      password: bcrypt.hashSync("quantify2026", 10),
+      name: "Quantify Funds Team",
+      company: "Quantify Funds",
+      role: "issuer",
+      createdAt: new Date().toISOString(),
+    });
+    [
+      { userId: quantify.id, label: "Months Active", value: "4", change: "+1", changeDirection: "up", icon: "Calendar", sortOrder: 0 },
+      { userId: quantify.id, label: "Total Investment", value: "$12,000", change: "", changeDirection: "neutral", icon: "DollarSign", sortOrder: 1 },
+    ].forEach((k) => storage.createKpi(k));
+
+    // ── KurvInvest ──
+    const kurv = storage.createUser({
+      email: "contact@kurvinvest.com",
+      password: bcrypt.hashSync("kurv2026", 10),
+      name: "KurvInvest Team",
+      company: "KurvInvest",
+      role: "issuer",
+      createdAt: new Date().toISOString(),
+    });
+    [
+      { userId: kurv.id, label: "Months Active", value: "4", change: "+1", changeDirection: "up", icon: "Calendar", sortOrder: 0 },
+      { userId: kurv.id, label: "Total Investment", value: "$12,000", change: "", changeDirection: "neutral", icon: "DollarSign", sortOrder: 1 },
+    ].forEach((k) => storage.createKpi(k));
+
+    // ── Acruence ──
+    const acruence = storage.createUser({
+      email: "contact@acruence.com",
+      password: bcrypt.hashSync("acruence2026", 10),
+      name: "Acruence Team",
+      company: "Acruence",
+      role: "issuer",
+      createdAt: new Date().toISOString(),
+    });
+    [
+      { userId: acruence.id, label: "Months Active", value: "4", change: "+1", changeDirection: "up", icon: "Calendar", sortOrder: 0 },
+      { userId: acruence.id, label: "Total Investment", value: "$12,000", change: "", changeDirection: "neutral", icon: "DollarSign", sortOrder: 1 },
+    ].forEach((k) => storage.createKpi(k));
+
+  }
+
+  // ── Idempotent ensure-exists for added clients (runs every startup) ──
+  const ensureClients: Array<{ email: string; password: string; name: string; company: string }> = [
+    { email: "contact@merkinvestments.com", password: "merk2026", name: "Merk Investments Team", company: "Merk Investments" },
+    { email: "contact@simplify.us", password: "simplify2026", name: "Simplify Team", company: "Simplify" },
+    { email: "contact@rayliant.com", password: "rayliant2026", name: "Rayliant Team", company: "Rayliant" },
+    { email: "contact@tradretfs.com", password: "tradr2026", name: "TradrETFs Team", company: "TradrETFs" },
+    { email: "contact@quantifyfunds.com", password: "quantify2026", name: "Quantify Funds Team", company: "Quantify Funds" },
+    { email: "contact@kurvinvest.com", password: "kurv2026", name: "KurvInvest Team", company: "KurvInvest" },
+    { email: "contact@acruence.com", password: "acruence2026", name: "Acruence Team", company: "Acruence" },
+  ];
+  for (const c of ensureClients) {
+    if (!storage.getUserByEmail(c.email)) {
+      const u = storage.createUser({
+        email: c.email,
+        password: bcrypt.hashSync(c.password, 10),
+        name: c.name,
+        company: c.company,
+        role: "issuer",
+        createdAt: new Date().toISOString(),
+      });
+      storage.createKpi({ userId: u.id, label: "Months Active", value: "4", change: "+1", changeDirection: "up", icon: "Calendar", sortOrder: 0 });
+      storage.createKpi({ userId: u.id, label: "Total Investment", value: "$12,000", change: "", changeDirection: "neutral", icon: "DollarSign", sortOrder: 1 });
+    }
   }
 
 
